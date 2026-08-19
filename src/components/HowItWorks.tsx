@@ -34,7 +34,7 @@ export default function HowItWorks() {
         <p className="text-fluid-subtitle text-zinc-600 font-light leading-relaxed">{t('howItWorksDesc')}</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {steps.map((step, idx) => (
           <div key={idx} className="group relative flex flex-row sm:flex-col items-start gap-4 sm:gap-0 p-5 sm:p-6 lg:p-8 rounded-2xl bg-zinc-900 border border-zinc-800 transition-all shadow-lg overflow-hidden hover:border-emerald-500/50">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>

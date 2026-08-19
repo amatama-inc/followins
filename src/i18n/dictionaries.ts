@@ -2,7 +2,7 @@ export const dictionaries = {
   id: {
     // page.tsx
     privacyBadge: "100% Client-Side Privacy",
-    heroTitle1: "Lacak Teman yang Unfollow Kamu,",
+    heroTitle1: "Lacak Siapa yang Unfollow Kamu,",
     heroTitle2: "Tanpa Login",
     heroDesc: "Caranya gampang, cukup Upload Zip data Instagrammu. Privasi terjamin aman karena data tidak pernah dikirim ke server.",
     summaryTitle: "Ringkasan Akunmu",
