@@ -26,6 +26,7 @@ import NewUnfollowersAlert from '@/components/NewUnfollowersAlert';
 import PendingRequests from '@/components/PendingRequests';
 import { PDFDownloadModal } from '@/components/pdf/PDFDownloadModal';
 import { parseInstagramZip, ParseResult } from '@/utils/instagramParser';
+import { obfuscate } from '@/utils/crypto';
 import { saveHistory, HistoryRecord, saveLastScanData, getLastScanData, getUnlockedAccounts, addUnlockedAccount } from '@/utils/storage';
 
 let secureCache: { unfollowers: string[], fans: string[], mutuals: string[], newUnfollowers: string[], kutuLoncat: string[] } | null = null;
@@ -123,9 +124,12 @@ export default function Home() {
     setTimeout(() => {
       const demoData = {
         ownerUsername: "demo_user",
-        unfollowers: Array.from({ length: 42 }).map((_, i) => `unfollower_user_${i}`),
-        fans: Array.from({ length: 128 }).map((_, i) => `fan_user_${i}`),
-        mutuals: Array.from({ length: 350 }).map((_, i) => `mutual_user_${i}`),
+        unfollowers: Array.from({ length: 42 }).map((_, i) => obfuscate(`unfollower_user_${i}`)),
+        fans: Array.from({ length: 128 }).map((_, i) => obfuscate(`fan_user_${i}`)),
+        mutuals: Array.from({ length: 350 }).map((_, i) => obfuscate(`mutual_user_${i}`)),
+        totalUnfollowersCount: 42,
+        totalFansCount: 128,
+        totalMutualsCount: 350,
         oldestFollowers: [
           { username: "c2VsZW5hZ29tZXo=", timestamp: 1546300800 },
           { username: "dGF5bG9yc3dpZnQ=", timestamp: 1548979200 },
@@ -171,8 +175,8 @@ export default function Home() {
         ]
       };
       
-      const allNewUnf = ["unfollower_user_0", "unfollower_user_1", "unfollower_user_2", "unfollower_user_3"];
-      const allKutu = ["unfollower_user_1", "unfollower_user_3"];
+      const allNewUnf = ["unfollower_user_0", "unfollower_user_1", "unfollower_user_2", "unfollower_user_3"].map(obfuscate);
+      const allKutu = ["unfollower_user_1", "unfollower_user_3"].map(obfuscate);
       
       secureCache = {
         unfollowers: demoData.unfollowers,

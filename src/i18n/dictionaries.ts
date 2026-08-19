@@ -16,10 +16,10 @@ export const dictionaries = {
     
     // Header
     langSwitch: "ID / EN",
-    navHowItWorks: "Cara Ambil Data Zip",
+    navHowItWorks: "Tutorial",
     navFeatures: "Fitur",
     navFaq: "FAQ",
-    navUpload: "Upload ZIP",
+    navUpload: "Coba Sekarang",
 
     // MetricCards.tsx
     unfollowersDesc: "Tidak Follback Kamu",
