@@ -131,16 +131,16 @@ export default function Home() {
         totalFansCount: 128,
         totalMutualsCount: 350,
         oldestFollowers: [
-          { username: "c2VsZW5hZ29tZXo=", timestamp: 1546300800 },
-          { username: "dGF5bG9yc3dpZnQ=", timestamp: 1548979200 },
-          { username: "emVuZGF5YQ==", timestamp: 1551398400 },
-          { username: "dG9taG9sbGFuZA==", timestamp: 1554076800 },
-          { username: "Y2hyaXNoZW1zd29ydGg=", timestamp: 1556668800 }
+          { username: obfuscate("selenagomez"), timestamp: 1546300800 },
+          { username: obfuscate("taylorswift"), timestamp: 1548979200 },
+          { username: obfuscate("zendaya"), timestamp: 1551398400 },
+          { username: obfuscate("tomholland"), timestamp: 1554076800 },
+          { username: obfuscate("chrishemsworth"), timestamp: 1556668800 }
         ],
         pendingRequests: [
-          { username: "cHJpdmF0ZV91c2VyXzE=", timestamp: 1672531200 },
-          { username: "c2VjcmV0X2FjY291bnQ=", timestamp: 1675209600 },
-          { username: "aGlkZGVuX3Byb2ZpbGU=", timestamp: 1677628800 }
+          { username: obfuscate("private_user_1"), timestamp: 1672531200 },
+          { username: obfuscate("secret_account"), timestamp: 1675209600 },
+          { username: obfuscate("hidden_profile"), timestamp: 1677628800 }
         ],
         followersCount: 478,
         followingCount: 392,

@@ -199,10 +199,10 @@ export const dictionaries = {
     
     // Header
     langSwitch: "EN / ID",
-    navHowItWorks: "How to Export Data",
+    navHowItWorks: "Tutorial",
     navFeatures: "Features",
     navFaq: "FAQ",
-    navUpload: "Upload ZIP",
+    navUpload: "Try Now",
 
     // MetricCards.tsx
     unfollowersDesc: "Not Following Back",
