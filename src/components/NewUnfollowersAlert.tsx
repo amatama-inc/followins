@@ -10,9 +10,10 @@ interface NewUnfollowersAlertProps {
   newUnfollowers: string[];
   kutuLoncat: string[];
   isFirstScan?: boolean;
+  accountMode?: 'public' | 'private';
 }
 
-export default function NewUnfollowersAlert({ newUnfollowers, kutuLoncat, isFirstScan = false }: NewUnfollowersAlertProps) {
+export default function NewUnfollowersAlert({ newUnfollowers, kutuLoncat, isFirstScan = false, accountMode = 'public' }: NewUnfollowersAlertProps) {
   const { t, language } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
@@ -40,7 +41,7 @@ export default function NewUnfollowersAlert({ newUnfollowers, kutuLoncat, isFirs
             <p className="text-indigo-700 dark-desc max-w-2xl text-fluid-widget-desc mt-3">
               {language === 'en' 
                 ? 'Come back next month or whenever you feel your followers count has changed, and upload your new ZIP. We will automatically track who unfollowed you and detect any "Hit & Run" accounts!' 
-                : 'Kembalilah bulan depan, atau kapanpun Anda merasa ada perubahan jumlah followers. Unggah ZIP terbaru Anda di sini, dan kami akan melacak siapa saja yang baru unfollow Anda serta mendeteksi akun "Kutu Loncat"!'}
+                : (accountMode === 'private' ? 'Kembalilah bulan depan, atau kapanpun Anda merasa ada perubahan jumlah followers. Unggah ZIP terbaru Anda di sini, dan kami akan melacak siapa saja yang baru unfollow Anda serta mendeteksi "Orang Mencurigakan"!' : 'Kembalilah bulan depan, atau kapanpun Anda merasa ada perubahan jumlah followers. Unggah ZIP terbaru Anda di sini, dan kami akan melacak siapa saja yang baru unfollow Anda serta mendeteksi akun "Kutu Loncat"!')}
             </p>
           </div>
         </div>
@@ -107,7 +108,7 @@ export default function NewUnfollowersAlert({ newUnfollowers, kutuLoncat, isFirs
             }
             {kutuLoncat.length > 0 && (
               <span className="font-bold ml-1 text-orange-600 dark:text-orange-400">
-                {language === 'en' ? `Including ${kutuLoncat.length} "Hit & Run" account(s).` : `Termasuk ${kutuLoncat.length} akun "Kutu Loncat".`}
+                {language === 'en' ? `Including ${kutuLoncat.length} "Hit & Run" account(s).` : (accountMode === 'private' ? `Termasuk ${kutuLoncat.length} "Orang Mencurigakan".` : `Termasuk ${kutuLoncat.length} akun "Kutu Loncat".`)}
               </span>
             )}
           </p>
@@ -141,8 +142,8 @@ export default function NewUnfollowersAlert({ newUnfollowers, kutuLoncat, isFirs
                 <div key={i} className={`p-3 rounded-lg border flex items-center justify-between ${isKutuLoncat ? 'bg-white border-orange-200 dark:bg-orange-500/5 dark:border-orange-500/20' : 'bg-white/60 border-rose-200 dark:bg-zinc-800/50 dark:border-zinc-700/50'}`}>
                   <span className={`font-medium text-sm truncate pr-2 ${isKutuLoncat ? 'text-orange-600 dark:text-orange-400' : 'text-zinc-800 dark:text-zinc-300'}`}>@{deobfuscate(u)}</span>
                   {isKutuLoncat && (
-                    <span className="text-[10px] font-bold bg-orange-100 text-orange-600 border border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20 px-2 py-0.5 rounded-full whitespace-nowrap" title={language === 'en' ? 'Hit & Run (Follow-Unfollow tactic)' : 'Kutu Loncat (Taktik Follow-Unfollow)'}>
-                      {language === 'en' ? 'Hit&Run' : 'Kutu Loncat'}
+                    <span className="text-[10px] font-bold bg-orange-100 text-orange-600 border border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20 px-2 py-0.5 rounded-full whitespace-nowrap" title={language === 'en' ? 'Hit & Run (Follow-Unfollow tactic)' : (accountMode === 'private' ? 'Sering request lalu unfollow' : 'Kutu Loncat (Taktik Follow-Unfollow)')}>
+                      {language === 'en' ? 'Hit&Run' : (accountMode === 'private' ? 'Mencurigakan' : 'Kutu Loncat')}
                     </span>
                   )}
                 </div>

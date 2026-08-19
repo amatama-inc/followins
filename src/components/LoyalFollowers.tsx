@@ -7,9 +7,10 @@ import { Award, Medal, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface LoyalFollowersProps {
   data: { username: string; timestamp: number }[];
+  accountMode?: 'public' | 'private';
 }
 
-export default function LoyalFollowers({ data }: LoyalFollowersProps) {
+export default function LoyalFollowers({ data, accountMode = 'public' }: LoyalFollowersProps) {
   const { t, language } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,8 +38,12 @@ export default function LoyalFollowers({ data }: LoyalFollowersProps) {
           <Award className="w-6 h-6" />
         </div>
         <div>
-          <h3 className="font-bold text-fluid-widget-title text-zinc-900 tracking-tight">{t('loyalTitle')}</h3>
-          <p className="text-fluid-widget-desc text-zinc-500">{t('loyalDesc')}</p>
+          <h3 className="font-bold text-fluid-widget-title text-zinc-900 tracking-tight">
+            {accountMode === 'private' ? (language === 'en' ? 'Oldest Followers Audit' : 'Audit Pengikut Lama') : t('loyalTitle')}
+          </h3>
+          <p className="text-fluid-widget-desc text-zinc-500">
+            {accountMode === 'private' ? (language === 'en' ? 'People who have followed you for a very long time. Do you still know them?' : 'Daftar orang yang sudah sangat lama mem-follow Anda. Apakah Anda masih mengenali mereka?') : t('loyalDesc')}
+          </p>
         </div>
       </div>
 

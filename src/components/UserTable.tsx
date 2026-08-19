@@ -18,9 +18,10 @@ interface UserTableProps {
   totalFansCount: number;
   mutuals: string[];
   totalMutualsCount: number;
+  accountMode?: 'public' | 'private';
 }
 
-export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, isPremium, onUnlock, totalUnfollowersCount, totalFansCount, totalMutualsCount }: UserTableProps) {
+export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, isPremium, onUnlock, totalUnfollowersCount, totalFansCount, totalMutualsCount, accountMode = 'public' }: UserTableProps) {
   const { t, formatCompactNumber, language } = useLanguage();
   
   const [activeTab, setActiveTab] = useState<'unfollowers' | 'fans' | 'mutuals'>('unfollowers');
@@ -82,7 +83,7 @@ export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, i
   const presetOptions = useMemo(() => {
     const defaults = language === 'en' 
       ? ['Unfollowed', 'Ignore', 'Friend'] 
-      : ['Sudah Unfollow', 'Abaikan', 'Teman'];
+      : ['Unfollow', 'Abaikan', 'Teman'];
     const existingLabels = Array.from(new Set(Object.values(labels).filter(l => l.trim() !== '')));
     return Array.from(new Set([...defaults, ...existingLabels])).slice(0, 6);
   }, [labels, language]);
@@ -171,7 +172,7 @@ export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, i
           }`}
           onClick={() => handleTabChange('fans')}
         >
-          Fans <span className="font-mono text-[10px] sm:text-xs md:text-sm text-teal-400 ml-1">({formatCompactNumber(totalFansCount)})</span>
+          {accountMode === 'private' ? (language === 'en' ? 'Lurkers' : 'Penyusup') : 'Fans'} <span className="font-mono text-[10px] sm:text-xs md:text-sm text-teal-400 ml-1">({formatCompactNumber(totalFansCount)})</span>
         </button>
         <button
           className={`flex-1 min-w-max px-4 sm:min-w-[120px] py-3 md:py-4 text-center font-bold text-xs sm:text-sm md:text-lg transition-colors whitespace-nowrap ${

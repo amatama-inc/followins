@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { ShieldCheck, Zap, Lock, Printer, ArrowLeft } from 'lucide-react';
+import { ShieldCheck, Zap, Lock, Printer, ArrowLeft, HelpCircle, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 import Header from '@/components/Header';
@@ -54,6 +54,7 @@ export default function Home() {
   const [newUnfollowers, setNewUnfollowers] = useState<string[]>([]);
   const [kutuLoncat, setKutuLoncat] = useState<string[]>([]);
   const [isFirstScan, setIsFirstScan] = useState(false);
+  const [accountMode, setAccountMode] = useState<'public' | 'private'>('public');
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
   const isPremium = result ? getUnlockedAccounts().includes(result.ownerUsername || 'my_account') : false;
@@ -432,7 +433,7 @@ export default function Home() {
 
         {status === 'done' && result && (
           <div className="w-full flex flex-col gap-5 items-center px-4 md:px-8 pt-8 pb-12 md:pb-20 max-w-[1400px] mx-auto">
-            <div className="w-full flex justify-start mb-2 print:hidden">
+            <div className="w-full flex flex-wrap gap-4 justify-between items-center mb-2 print:hidden">
               <button 
                 onClick={() => { setStatus('idle'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className="flex items-center gap-2 text-zinc-500 hover:text-zinc-900 font-medium transition-colors bg-white px-4 py-2 rounded-lg border border-zinc-200 shadow-sm hover:shadow"
@@ -440,6 +441,23 @@ export default function Home() {
                 <ArrowLeft className="w-4 h-4" />
                 {language === 'en' ? 'Back to Home' : 'Kembali ke Beranda'}
               </button>
+
+              <div className="flex bg-white p-1 rounded-lg border border-zinc-200 shadow-sm">
+                <button 
+                  onClick={() => setAccountMode('public')}
+                  className={`px-4 py-1.5 text-xs font-semibold rounded-md transition-colors ${accountMode === 'public' ? 'bg-zinc-100 text-zinc-900 shadow-inner' : 'text-zinc-500 hover:text-zinc-700'}`}
+                >
+                  <Globe className="w-3.5 h-3.5 inline mr-1.5"/>
+                  {language === 'en' ? 'Public Mode' : 'Mode Publik'}
+                </button>
+                <button 
+                  onClick={() => setAccountMode('private')}
+                  className={`px-4 py-1.5 text-xs font-semibold rounded-md transition-colors ${accountMode === 'private' ? 'bg-zinc-100 text-zinc-900 shadow-inner' : 'text-zinc-500 hover:text-zinc-700'}`}
+                >
+                  <Lock className="w-3.5 h-3.5 inline mr-1.5"/>
+                  {language === 'en' ? 'Private Mode' : 'Mode Private'}
+                </button>
+              </div>
             </div>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -472,7 +490,7 @@ export default function Home() {
             </motion.div>
 
             {/* Fitur Baru: New Unfollowers Alert */}
-            <NewUnfollowersAlert newUnfollowers={newUnfollowers} kutuLoncat={kutuLoncat} isFirstScan={isFirstScan} />
+            <NewUnfollowersAlert newUnfollowers={newUnfollowers} kutuLoncat={kutuLoncat} isFirstScan={isFirstScan} accountMode={accountMode} />
 
             {isDemo && (
               <motion.div 
@@ -508,6 +526,7 @@ export default function Home() {
                 unfollowers={result.totalUnfollowersCount || result.unfollowers.length}
                 fans={result.totalFansCount || result.fans.length}
                 mutuals={result.followersCount > 0 ? (result.totalFansCount ? result.followersCount - result.totalFansCount : result.mutuals.length) : 0}
+                accountMode={accountMode}
               />
             </motion.div>
 
@@ -538,7 +557,7 @@ export default function Home() {
               </motion.div>
               
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-50px" }} className="w-full md:w-1/2 flex">
-                <LoyalFollowers data={result.oldestFollowers} />
+                <LoyalFollowers data={result.oldestFollowers} accountMode={accountMode} />
               </motion.div>
             </div>
 
@@ -566,6 +585,7 @@ export default function Home() {
                 totalUnfollowersCount={result.totalUnfollowersCount || result.unfollowers.length}
                 totalFansCount={result.totalFansCount || result.fans.length}
                 totalMutualsCount={result.totalMutualsCount || result.mutuals.length}
+                accountMode={accountMode}
               />
             </motion.div>
           </div>

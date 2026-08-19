@@ -84,11 +84,11 @@ export const dictionaries = {
     growthNewFollowing: "Following Baru",
 
     // CohortChart.tsx
-    cohortTitle: "Fans, Mutualan, dan Unfollower/Following",
+    cohortTitle: "Fans, Mutualan, dan Unfollower",
     cohortDesc: "Grafik ini mengelompokkan Mutualan, Fans, atau Unfollower. berdasarkan kapan dia mulai terhubung dengan kamu (entah saat mereka mulai follow kamu, atau kamu mulai follow mereka).",
     cohortMutuals: "Mutual",
     cohortFans: "Fans",
-    cohortUnfollowers: "Unfollowers/Following",
+    cohortUnfollowers: "Unfollowers",
     cohortOlder: "Data Lama",
     cohortPage: "Halaman",
     cohortNewer: "Data Baru",
