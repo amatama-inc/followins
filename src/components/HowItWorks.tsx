@@ -28,7 +28,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="w-full max-w-7xl mx-auto py-8 md:py-20 px-6 md:px-12 relative z-10">
+    <section id="how-it-works" className="w-full max-w-7xl mx-auto py-8 md:py-20 px-6 md:px-12 relative z-10 scroll-mt-24">
       <div className="mb-8 md:mb-12 text-left">
         <h2 className="text-fluid-h2 font-black text-zinc-900 mb-6 tracking-tight leading-tight">{t('howItWorksTitle')}</h2>
         <p className="text-fluid-subtitle text-zinc-600 font-light leading-relaxed">{t('howItWorksDesc')}</p>

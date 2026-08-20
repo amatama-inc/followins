@@ -49,7 +49,7 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] **Dukungan Bantuan:** Buat komponen `EmailSupportLink.tsx` terpusat untuk halaman Footer dan halaman Legal.
 - [x] **Eksport Laporan PDF:** Mengintegrasikan `@react-pdf/renderer` untuk meng-generate dokumen analitik siap cetak secara *Client-Side*.
 - [x] **Multi-Account Reset:** Tambahkan fungsi bersihkan *cache* untuk memungkinkan pengguna mengecek akun lain tanpa *reload* (diimplementasikan via `resetApp`).
-- [x] **Analytics & Tracking:** Mengintegrasikan `@vercel/analytics` di `layout.tsx` untuk memantau metrik lalu lintas (*traffic*) pengunjung secara *real-time* di lingkungan produksi.
+- [x] **Analytics & Tracking:** Mengintegrasikan `@vercel/analytics` dan `@vercel/speed-insights` di `layout.tsx` untuk memantau metrik lalu lintas (*traffic*) dan performa *Core Web Vitals* pengunjung secara *real-time* di lingkungan produksi.
 
 ## Tahap 6: Peta Jalan Masa Depan (Future Roadmap - Backlog)
 *(Sinkronisasi dari PRD Bagian 4: Fitur ditunda untuk iterasi pasca-MVP)*
