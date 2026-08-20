@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/components/ThemeContext";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeProvider>
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
