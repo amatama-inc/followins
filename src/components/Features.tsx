@@ -3,10 +3,12 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import { ShieldAlert, BarChart3, Zap, FileText, Filter, History } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useInView } from 'framer-motion';
 
 export default function Features() {
   const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(scrollRef, { margin: "0px" });
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -61,7 +63,7 @@ export default function Features() {
       const deltaTime = time - lastTime;
       lastTime = time;
 
-      if (!isPaused && !isDragging) {
+      if (!isPaused && !isDragging && isInView) {
         container.scrollLeft += speed * deltaTime;
         
         // The exact half of the scrollable width since we duplicated the array exactly once
@@ -81,7 +83,7 @@ export default function Features() {
     animationFrameId = requestAnimationFrame(scroll);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused, isDragging]);
+  }, [isPaused, isDragging, isInView]);
 
   return (
     <section id="features" className="w-full max-w-7xl mx-auto py-8 md:py-20 px-6 md:px-12 relative z-10">
