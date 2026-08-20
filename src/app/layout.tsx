@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
