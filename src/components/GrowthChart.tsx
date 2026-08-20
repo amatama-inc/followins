@@ -14,8 +14,10 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', '
 export default function GrowthChart({ data }: GrowthChartProps) {
   const { t, language } = useLanguage();
   const MONTHS = t('months') as unknown as string[];
-  const [viewMode, setViewMode] = useState<'monthly' | 'yearly'>('monthly');
+  const [viewMode, setViewMode] = useState<'monthly' | 'yearly' | 'custom'>('monthly');
   const [selectedYear, setSelectedYear] = useState<string>('');
+  const [customStart, setCustomStart] = useState<string>('');
+  const [customEnd, setCustomEnd] = useState<string>('');
   const [isMobile, setIsMobile] = useState(false);
 
   // Deteksi ukuran layar untuk grafik (Stacked di HP, Grouped di Laptop)
@@ -43,7 +45,11 @@ export default function GrowthChart({ data }: GrowthChartProps) {
     if (availableYears.length > 0 && !selectedYear) {
       setSelectedYear(availableYears[0]);
     }
-  }, [availableYears, selectedYear]);
+    if (data && data.length > 0 && !customStart && !customEnd) {
+      setCustomStart(data[0].date);
+      setCustomEnd(data[data.length - 1].date);
+    }
+  }, [availableYears, selectedYear, data, customStart, customEnd]);
 
   // Proses data berdasarkan mode yang dipilih
   const chartData = useMemo(() => {
@@ -66,13 +72,27 @@ export default function GrowthChart({ data }: GrowthChartProps) {
 
       return Object.keys(yearlyMap).sort().map(year => ({
         displayDate: year,
-        // Gunakan undefined untuk nilai 0 agar label '0' tidak mengotori grafik
         followers: yearlyMap[year].followers > 0 ? yearlyMap[year].followers : undefined,
         following: yearlyMap[year].following > 0 ? yearlyMap[year].following : undefined
       }));
 
+    } else if (viewMode === 'custom') {
+      if (!customStart || !customEnd) return [];
+      
+      const filteredData = data.filter(d => d.date >= customStart && d.date <= customEnd);
+      
+      return filteredData.map(item => {
+        const [year, month] = item.date.split('-');
+        const monthIndex = parseInt(month, 10) - 1;
+        return {
+          displayDate: `${MONTHS[monthIndex]} '${year.slice(2)}`,
+          followers: item.followers > 0 ? item.followers : undefined,
+          following: item.following > 0 ? item.following : undefined
+        };
+      });
+
     } else {
-      // Mode Per Bulan (Khusus untuk tahun yang dipilih, seperti screenshot Python)
+      // Mode Per Bulan (Khusus untuk tahun yang dipilih)
       if (!selectedYear) return [];
       
       const yearData = data.filter(d => d.date.startsWith(selectedYear));
@@ -83,21 +103,26 @@ export default function GrowthChart({ data }: GrowthChartProps) {
         monthlyMap[MONTHS[monthIndex]] = { followers: item.followers, following: item.following };
       });
 
-      // Kembalikan 12 bulan penuh agar sumbu X selalu konsisten (Jan-Des)
       return MONTHS.map(m => ({
         displayDate: m,
         followers: monthlyMap[m]?.followers > 0 ? monthlyMap[m].followers : undefined,
         following: monthlyMap[m]?.following > 0 ? monthlyMap[m].following : undefined
       }));
     }
-  }, [data, viewMode, selectedYear, MONTHS, t]);
+  }, [data, viewMode, selectedYear, customStart, customEnd, MONTHS, t]);
+
+  const getDescription = () => {
+    if (viewMode === 'monthly') return `${t('growthDescMonthly')} ${selectedYear}`;
+    if (viewMode === 'yearly') return t('growthDescYearly');
+    return language === 'en' ? `Custom Range: ${customStart} to ${customEnd}` : `Rentang Kustom: ${customStart} sampai ${customEnd}`;
+  };
 
   return (
     <ChartContainer 
       title={t('growthTitle')} 
-      description={viewMode === 'monthly' ? `${t('growthDescMonthly')} ${selectedYear}` : t('growthDescYearly')}
+      description={getDescription()}
       controls={
-        <>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mt-3 sm:mt-0 items-start sm:items-center">
           {viewMode === 'monthly' && availableYears.length > 0 && (
             <select 
               value={selectedYear}
@@ -110,10 +135,28 @@ export default function GrowthChart({ data }: GrowthChartProps) {
             </select>
           )}
 
-          <div className="flex w-full sm:w-auto bg-zinc-100 rounded-xl p-1 border border-zinc-200">
+          {viewMode === 'custom' && (
+            <div className="flex flex-col min-[450px]:flex-row items-stretch min-[450px]:items-center gap-2 w-full sm:w-auto">
+              <input 
+                type="month" 
+                value={customStart}
+                onChange={(e) => setCustomStart(e.target.value)}
+                className="w-full sm:w-auto bg-zinc-50 border border-zinc-200 text-zinc-900 font-medium text-sm rounded-xl focus:ring-2 focus:ring-blue-500/50 block p-2 outline-none"
+              />
+              <span className="text-zinc-400 font-medium hidden min-[450px]:block shrink-0">-</span>
+              <input 
+                type="month" 
+                value={customEnd}
+                onChange={(e) => setCustomEnd(e.target.value)}
+                className="w-full sm:w-auto bg-zinc-50 border border-zinc-200 text-zinc-900 font-medium text-sm rounded-xl focus:ring-2 focus:ring-blue-500/50 block p-2 outline-none"
+              />
+            </div>
+          )}
+
+          <div className="flex w-full sm:w-auto bg-zinc-100 rounded-xl p-1 border border-zinc-200 hide-scrollbar overflow-x-auto">
             <button 
               onClick={() => setViewMode('monthly')}
-              className={`flex-1 sm:flex-none px-2 min-[375px]:px-4 py-2 text-xs min-[375px]:text-sm font-medium rounded-lg transition-all ${
+              className={`flex-1 sm:flex-none px-2 min-[375px]:px-4 py-2 text-xs min-[375px]:text-sm font-medium rounded-lg transition-all whitespace-nowrap ${
                 viewMode === 'monthly' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-700'
               }`}
             >
@@ -121,14 +164,22 @@ export default function GrowthChart({ data }: GrowthChartProps) {
             </button>
             <button 
               onClick={() => setViewMode('yearly')}
-              className={`flex-1 sm:flex-none px-2 min-[375px]:px-4 py-2 text-xs min-[375px]:text-sm font-medium rounded-lg transition-all ${
+              className={`flex-1 sm:flex-none px-2 min-[375px]:px-4 py-2 text-xs min-[375px]:text-sm font-medium rounded-lg transition-all whitespace-nowrap ${
                 viewMode === 'yearly' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-700'
               }`}
             >
               {t('growthPerYear')}
             </button>
+            <button 
+              onClick={() => setViewMode('custom')}
+              className={`flex-1 sm:flex-none px-2 min-[375px]:px-4 py-2 text-xs min-[375px]:text-sm font-medium rounded-lg transition-all whitespace-nowrap ${
+                viewMode === 'custom' ? 'bg-white text-zinc-900 shadow-sm border border-zinc-200' : 'text-zinc-500 hover:text-zinc-700'
+              }`}
+            >
+              {language === 'en' ? 'Custom' : 'Kustom'}
+            </button>
           </div>
-        </>
+        </div>
       }
     >
       <div className="h-72 md:h-96 w-full relative z-10 flex items-center justify-center">
@@ -144,23 +195,23 @@ export default function GrowthChart({ data }: GrowthChartProps) {
               itemStyle={{ color: '#52525b' }}
             />
             
-            {/* Followers Baru (Bawah saat mobile, Kiri saat laptop) */}
+            {/* Followers Baru (Bawah saat mobile atau kustom, Kiri saat laptop mode lain) */}
             <Bar 
               dataKey="followers" 
               name={t('growthNewFollowers')} 
               fill="#10b981" 
-              stackId={isMobile ? "a" : undefined} 
+              stackId={isMobile || viewMode === 'custom' ? "a" : undefined} 
               maxBarSize={40} 
-              radius={isMobile ? [0, 0, 0, 0] : [6, 6, 0, 0]} 
+              radius={isMobile || viewMode === 'custom' ? [0, 0, 0, 0] : [6, 6, 0, 0]} 
               isAnimationActive={false}
             />
             
-            {/* Following Baru (Atas saat mobile, Kanan saat laptop) */}
+            {/* Following Baru (Atas saat mobile atau kustom, Kanan saat laptop mode lain) */}
             <Bar 
               dataKey="following" 
               name={t('growthNewFollowing')} 
               fill="#52525b" 
-              stackId={isMobile ? "a" : undefined} 
+              stackId={isMobile || viewMode === 'custom' ? "a" : undefined} 
               radius={[6, 6, 0, 0]} 
               maxBarSize={40} 
               isAnimationActive={false}

@@ -47,6 +47,12 @@ export default function Home() {
       }
     } catch (e) {}
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [status]);
   
   const [isDemo, setIsDemo] = useState(false);
   
@@ -305,9 +311,9 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-zinc-50 text-zinc-900 font-sans relative">
       <div className="relative z-10 flex flex-col min-h-screen">
       <div className="print:hidden sticky top-0 z-[100]">
-        <Header />
+        <Header showNav={status === 'idle'} />
       </div>
-      
+        
         <main className="flex-1 flex flex-col">
           {status === 'idle' && (
             <>
@@ -595,6 +601,21 @@ export default function Home() {
         <div className="print:hidden">
           <Footer />
         </div>
+
+        {/* Floating Tutorial Button for Mobile */}
+        {status === 'idle' && (
+          <div className="md:hidden fixed bottom-6 right-6 z-[90] print:hidden">
+            <button 
+              onClick={() => {
+                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="flex items-center justify-center w-14 h-14 bg-emerald-500 text-white rounded-full shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] hover:bg-emerald-600 hover:shadow-[0_6px_20px_rgba(16,185,129,0.23)] active:scale-95 transition-all duration-200"
+              aria-label="Tutorial"
+            >
+              <HelpCircle className="w-6 h-6" />
+            </button>
+          </div>
+        )}
 
         <PDFDownloadModal 
           isOpen={isPdfModalOpen} 

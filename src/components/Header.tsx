@@ -5,7 +5,11 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useTheme } from '@/components/ThemeContext';
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function Header() {
+interface HeaderProps {
+  showNav?: boolean;
+}
+
+export default function Header({ showNav = true }: HeaderProps = {}) {
   const { t, toggleLanguage } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
   const pathname = usePathname();
@@ -41,17 +45,19 @@ export default function Header() {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-3 lg:gap-8 h-full px-1 lg:px-8">
-        <button onClick={() => scrollToSection('how-it-works')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors whitespace-nowrap">
-          {t('navHowItWorks')}
-        </button>
-        <button onClick={() => scrollToSection('features')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors whitespace-nowrap">
-          {t('navFeatures')}
-        </button>
-        <button onClick={() => scrollToSection('faq')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors whitespace-nowrap">
-          {t('navFaq')}
-        </button>
-      </nav>
+      {showNav && (
+        <nav className="hidden md:flex items-center gap-3 lg:gap-8 h-full px-1 lg:px-8">
+          <button onClick={() => scrollToSection('how-it-works')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors whitespace-nowrap">
+            {t('navHowItWorks')}
+          </button>
+          <button onClick={() => scrollToSection('features')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors whitespace-nowrap">
+            {t('navFeatures')}
+          </button>
+          <button onClick={() => scrollToSection('faq')} className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors whitespace-nowrap">
+            {t('navFaq')}
+          </button>
+        </nav>
+      )}
 
       <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
         <button 
@@ -71,13 +77,15 @@ export default function Header() {
           <span className="hidden sm:inline whitespace-nowrap">{t('langSwitch')}</span>
         </button>
 
-        <button 
-          onClick={scrollToTop}
-          className="hidden sm:flex items-center gap-1.5 lg:gap-2 px-3 py-2 lg:px-5 lg:py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors shadow-sm whitespace-nowrap"
-        >
-          {t('navUpload')}
-          <ArrowUpCircle size={18} />
-        </button>
+        {showNav && (
+          <button 
+            onClick={scrollToTop}
+            className="hidden sm:flex items-center gap-1.5 lg:gap-2 px-3 py-2 lg:px-5 lg:py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors shadow-sm whitespace-nowrap"
+          >
+            {t('navUpload')}
+            <ArrowUpCircle size={18} />
+          </button>
+        )}
       </div>
     </header>
   );

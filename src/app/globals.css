@@ -87,3 +87,10 @@ body {
 .dark .dark-button-rose:hover { background-color: rgba(244, 63, 94, 0.2) !important; }
 .dark .dark-button-blue { background-color: rgba(59, 130, 246, 0.1) !important; color: #60a5fa !important; border-color: rgba(59, 130, 246, 0.3) !important; }
 .dark .dark-button-blue:hover { background-color: rgba(59, 130, 246, 0.2) !important; }
+
+/* Form inputs */
+.dark input[type="date"],
+.dark input[type="month"],
+.dark input[type="time"] {
+  color-scheme: dark;
+}

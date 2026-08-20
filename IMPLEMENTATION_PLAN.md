@@ -25,11 +25,13 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] Peningkatan Dashboard Analytics: Tambahkan Toggle **Public/Private Mode** untuk mengubah gaya bahasa analitik, pendeteksi Unfollowers Baru & "Kutu Loncat" (berubah istilah menjadi "Mencurigakan" jika Private), daftar Pengikut Setia (Loyal Followers), Permintaan Menggantung (Pending Requests), dan Skor Kesehatan Akun (Account Health Ratio).
 - [x] Implementasikan `MetricCards.tsx` (Jumlah followers/unfollowers).
 - [x] Implementasikan `GrowthChart.tsx` dan fitur visualisasi lainnya (Cohort, Seasonality Radar, dll).
+- [x] **Filter Rentang Waktu Kustom:** Fitur mode "Custom Range" terintegrasi di dalam *Growth Chart* untuk menganalisis perkembangan akun di rentang bulan yang spesifik.
 - [x] Implementasikan `UserTable.tsx` (Menampilkan maksimal 100 akun yang dipilih secara **acak** untuk versi gratis).
 - [x] Peningkatan *UserTable* (Mini CRM): Tambahkan tab **Mutuals** (Saling Follow), fitur Label/Tagging akun berwarna, Bulk Actions, fungsi Pencarian (Search), dan Penyortiran (Sort).
 - [x] Refaktor *Paywall*: Pindahkan logika pemotongan array (slice data) ke komponen induk (`page.tsx`) agar keamanan terjamin dan mempermudah render.
 - [x] **Refaktorisasi & Clean Code:** Ekstraksi logika filter ke custom hook `useUserFilter.ts`, pecah komponen besar menjadi bagian modular (`UserListItem.tsx`, `ChartContainer.tsx`, `LegalPageLayout.tsx`).
 - [x] **Fluid Typography & Responsive UI:** Terapkan fungsi `clamp()` di `globals.css` untuk memastikan ukuran teks beradaptasi secara mulus di berbagai perangkat tanpa *breakpoint* kaku, meningkatkan *Premium Feel*.
+- [x] **Mobile UX Optimization:** Penyesuaian antarmuka dinamis pada *mobile* (contoh: *Growth Chart* berubah dari *grouped* menjadi *stacked bar*), penambahan *Floating Action Button (FAB)* panduan khusus di layar kecil, serta fitur *Clean Header* yang menyembunyikan navigasi saat mode *Dashboard* aktif.
 - [x] **Optimasi Performa (Pagination):** Terapkan Pagination pada `UserTable.tsx` (menampilkan 20 akun per halaman) untuk mencegah *lag* saat merender ribuan elemen DOM (*Performance Boost*).
 - [x] **Animasi Interaktif (Framer Motion):** Mengintegrasikan `framer-motion` di `page.tsx` untuk menghadirkan efek transisi *fade-in* dan *scroll-triggered animations* pada hero banner dan komponen widget, menghidupkan antarmuka agar tidak statis.
 
@@ -45,14 +47,14 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] **Bilingual (i18n):** Siapkan dukungan dua bahasa (Indonesia/Inggris) untuk menjangkau pengguna global (`LanguageContext.tsx`).
 - [x] **Dark Mode:** Terapkan dukungan tema Gelap/Terang via `ThemeContext.tsx`.
 - [x] **Dukungan Bantuan:** Buat komponen `EmailSupportLink.tsx` terpusat untuk halaman Footer dan halaman Legal.
-- [x] **Eksport Laporan PDF:** Mengintegrasikan `@react-pdf/renderer` untuk meng-generate dokumen analitik siap cetak secara *Client-Side*. Terdiri dari tabel data, grafik ringkasan, dan pilihan opsi jumlah unduhan data bagi *Free/Premium users*.
+- [x] **Eksport Laporan PDF:** Mengintegrasikan `@react-pdf/renderer` untuk meng-generate dokumen analitik siap cetak secara *Client-Side*.
 - [x] **Multi-Account Reset:** Tambahkan fungsi bersihkan *cache* untuk memungkinkan pengguna mengecek akun lain tanpa *reload* (diimplementasikan via `resetApp`).
+- [x] **Analytics & Tracking:** Mengintegrasikan `@vercel/analytics` di `layout.tsx` untuk memantau metrik lalu lintas (*traffic*) pengunjung secara *real-time* di lingkungan produksi.
 
 ## Tahap 6: Peta Jalan Masa Depan (Future Roadmap - Backlog)
 *(Sinkronisasi dari PRD Bagian 4: Fitur ditunda untuk iterasi pasca-MVP)*
 
 **Analitik & Manajemen:**
-- [ ] Filter Rentang Waktu Kustom (Custom Date Range).
 - [ ] Manajemen Multi-Akun (Cross-Account Dashboard).
 - [ ] Detektor "Ghost Follower".
 - [ ] "Super Fans" Leaderboard.
