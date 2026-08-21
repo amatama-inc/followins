@@ -12,22 +12,25 @@ import HowItWorks from '@/components/HowItWorks';
 import Features from '@/components/Features';
 import PrivacySection from '@/components/PrivacySection';
 import FAQ from '@/components/FAQ';
-import HistoryWidget from '@/components/HistoryWidget';
-import MetricCards from '@/components/MetricCards';
-import UserTable from '@/components/UserTable';
-import GrowthChart from '@/components/GrowthChart';
-import RelationshipPieChart from '@/components/RelationshipPieChart';
-import CohortChart from '@/components/CohortChart';
-import MutualStats from '@/components/MutualStats';
-import SeasonalityRadar from '@/components/SeasonalityRadar';
-import LoyalFollowers from '@/components/LoyalFollowers';
-import AccountHealthRatio from '@/components/AccountHealthRatio';
-import NewUnfollowersAlert from '@/components/NewUnfollowersAlert';
-import PendingRequests from '@/components/PendingRequests';
-import { PDFDownloadModal } from '@/components/pdf/PDFDownloadModal';
+import dynamic from 'next/dynamic';
+
+const HistoryWidget = dynamic(() => import('@/components/HistoryWidget'), { ssr: false });
+const MetricCards = dynamic(() => import('@/components/MetricCards'));
+const UserTable = dynamic(() => import('@/components/UserTable'));
+const GrowthChart = dynamic(() => import('@/components/GrowthChart'));
+const RelationshipPieChart = dynamic(() => import('@/components/RelationshipPieChart'));
+const CohortChart = dynamic(() => import('@/components/CohortChart'));
+const MutualStats = dynamic(() => import('@/components/MutualStats'));
+const SeasonalityRadar = dynamic(() => import('@/components/SeasonalityRadar'));
+const LoyalFollowers = dynamic(() => import('@/components/LoyalFollowers'));
+const AccountHealthRatio = dynamic(() => import('@/components/AccountHealthRatio'));
+const NewUnfollowersAlert = dynamic(() => import('@/components/NewUnfollowersAlert'));
+const PendingRequests = dynamic(() => import('@/components/PendingRequests'));
+const PDFDownloadModal = dynamic(() => import('@/components/pdf/PDFDownloadModal').then(mod => mod.PDFDownloadModal), { ssr: false });
 import { parseInstagramZip, ParseResult } from '@/utils/instagramParser';
 import { obfuscate } from '@/utils/crypto';
 import { saveHistory, HistoryRecord, saveLastScanData, getLastScanData, getUnlockedAccounts, addUnlockedAccount } from '@/utils/storage';
+import { track } from '@vercel/analytics';
 
 let secureCache: { unfollowers: string[], fans: string[], mutuals: string[], newUnfollowers: string[], kutuLoncat: string[] } | null = null;
 
@@ -51,6 +54,17 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    
+    // Vercel Analytics tracking
+    if (status === 'done') {
+      try {
+        track('Dashboard_Viewed');
+      } catch (e) {}
+    } else if (status === 'idle') {
+      try {
+        track('Landing_Viewed');
+      } catch (e) {}
     }
   }, [status]);
   
@@ -322,12 +336,7 @@ export default function Home() {
                 
                 {/* Left Column */}
                 <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center relative z-10 text-center lg:text-left lg:pr-4">
-                  <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-fluid-h1 font-black tracking-tight mb-6 leading-[1.1]"
-                  >
+                  <h1 className="text-fluid-h1 font-black tracking-tight mb-6 leading-[1.1] animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <span className="text-zinc-900">
                       {t('heroTitle1')}
                     </span>
@@ -335,16 +344,11 @@ export default function Home() {
                     <span className="text-zinc-900">
                       {t('heroTitle2')}
                     </span>
-                  </motion.h1>
+                  </h1>
                   
-                  <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-fluid-p text-zinc-600 max-w-xl leading-relaxed mx-auto lg:mx-0 font-light mb-8"
-                  >
+                  <p className="text-fluid-p text-zinc-600 max-w-xl leading-relaxed mx-auto lg:mx-0 font-light mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100 fill-mode-both">
                     {t('heroDesc')}
-                  </motion.p>
+                  </p>
 
                   {/* Feature Checklist */}
                   <motion.div 
