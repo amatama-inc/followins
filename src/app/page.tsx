@@ -57,9 +57,9 @@ export default function Home() {
       
       // Update URL to trigger Vercel Analytics page view tracking
       if (status === 'done') {
-        window.history.pushState(null, '', '?view=dashboard');
+        window.history.pushState(null, '', '/dashboard');
       } else if (status === 'idle') {
-        window.history.pushState(null, '', window.location.pathname);
+        window.history.pushState(null, '', '/');
       }
     }
     
