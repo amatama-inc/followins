@@ -54,9 +54,16 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'instant' });
+      
+      // Update URL to trigger Vercel Analytics page view tracking
+      if (status === 'done') {
+        window.history.pushState(null, '', '?view=dashboard');
+      } else if (status === 'idle') {
+        window.history.pushState(null, '', window.location.pathname);
+      }
     }
     
-    // Vercel Analytics tracking
+    // Vercel Analytics tracking (Custom Events)
     if (status === 'done') {
       try {
         track('Dashboard_Viewed');
