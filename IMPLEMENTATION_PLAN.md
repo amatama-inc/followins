@@ -28,6 +28,7 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] **Filter Rentang Waktu Kustom:** Fitur mode "Custom Range" terintegrasi di dalam *Growth Chart* untuk menganalisis perkembangan akun di rentang bulan yang spesifik.
 - [x] Implementasikan `UserTable.tsx` (Menampilkan maksimal 100 akun yang dipilih secara **acak** untuk versi gratis).
 - [x] Peningkatan *UserTable* (Mini CRM): Tambahkan tab **Mutuals** (Saling Follow), fitur Label/Tagging akun berwarna, Bulk Actions, fungsi Pencarian (Search), dan Penyortiran (Sort).
+- [x] **Manajemen Multi-Akun:** Integrasikan `IndexedDB` dan buat komponen `AccountSwitcher.tsx` agar pengguna dapat menyimpan dan beralih riwayat analisis beberapa akun Instagram sekaligus tanpa perlu *upload* ulang ZIP.
 - [x] Refaktor *Paywall*: Pindahkan logika pemotongan array (slice data) ke komponen induk (`page.tsx`) agar keamanan terjamin dan mempermudah render.
 - [x] **Refaktorisasi & Clean Code:** Ekstraksi logika filter ke custom hook `useUserFilter.ts`, pecah komponen besar menjadi bagian modular (`UserListItem.tsx`, `ChartContainer.tsx`, `LegalPageLayout.tsx`).
 - [x] **Fluid Typography & Responsive UI:** Terapkan fungsi `clamp()` di `globals.css` untuk memastikan ukuran teks beradaptasi secara mulus di berbagai perangkat tanpa *breakpoint* kaku, meningkatkan *Premium Feel*.
@@ -55,29 +56,29 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 *(Sinkronisasi dari PRD Bagian 4: Fitur ditunda untuk iterasi pasca-MVP)*
 
 **Analitik & Manajemen:**
-- [ ] Manajemen Multi-Akun (Cross-Account Dashboard).
 - [ ] Detektor "Ghost Follower".
 - [ ] "Super Fans" Leaderboard.
 
 **Monetisasi & Bisnis:**
 - [ ] Integrasi Payment Gateway Otomatis (Midtrans/Xendit).
 - [ ] Sistem Premium Bertingkat (Multi-Tier Paywall).
-- [ ] Lisensi Premium Lintas Akun (Cross-Account License).
+- [ ] Sistem Kode Lisensi Premium (Multi-Device & Cross-Account) dengan limitasi via Cloudflare KV.
 - [ ] Ekspor Laporan PDF Profesional B2B (White-label Logo).
 - [ ] Model Bisnis "Jual Putus" (One-Time Audit).
 - [ ] Penempatan Iklan AdSense & Affiliate (Sticky Banner, In-Feed, Interstitial, Sidebar).
 
 **Infrastruktur & Keamanan:**
-- [ ] Strategi Deployment Ganda Paralel (Vercel untuk evaluasi, Cloudflare Pages untuk *Production*).
-- [ ] Domain Bootstrapping ke `.app` & Manajemen DNS Cloudflare.
+- [ ] Strategi Deployment Ganda (Vercel untuk evaluasi/staging, Cloudflare Pages untuk *Production*).
+- [ ] Domain Bootstrapping: Peluncuran awal menggunakan domain murah (`.my.id`), disusul migrasi SEO-friendly ke `followins.app` saat aplikasi mulai menghasilkan pendapatan.
+- [ ] Pengaturan Email Khusus: Konfigurasi Cloudflare Email Routing untuk penerimaan pesan (Gratis) atau integrasi Zoho Mail untuk pengiriman email bisnis penuh (mis: `hello@followins.app`).
 - [ ] Server-Side Rate Limiting via Cloudflare KV.
 - [ ] Cloudflare Turnstile (Anti-Bot) di area upload ZIP.
 - [ ] Otomatisasi CI/CD & GitHub Actions (Pemindaian Secrets & Build).
 - [ ] Pengujian Keamanan & Kualitas (QA E2E via Playwright/Cypress).
 
-**Distribusi & Distribusi:**
-- [ ] Aplikasi Mobile (Android Native via Capacitor/React Native).
-- [ ] PWA Support (Progressive Web App).
+**Distribusi & Aksesibilitas:**
+- [ ] Aplikasi Mobile (Android Native via Capacitor/React Native) dengan integrasi API langsung ke domain utama.
+- [ ] PWA Support & Local Push Notifications (Pengingat Otomatis).
 - [ ] Optimasi SEO & Open Graph (OG Tags).
 - [ ] Homepage Teaser/Demo Interaktif.
 - [ ] Sistem Tiket & Formulir Kontak dalam Aplikasi (In-App Support).

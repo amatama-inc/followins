@@ -31,6 +31,7 @@ import { parseInstagramZip, ParseResult } from '@/utils/instagramParser';
 import { obfuscate } from '@/utils/crypto';
 import { saveHistory, HistoryRecord, saveLastScanData, getLastScanData, getUnlockedAccounts, addUnlockedAccount } from '@/utils/storage';
 import { track } from '@vercel/analytics';
+import { saveAccountScanToDB, getAccountScanFromDB } from '@/utils/indexedDB';
 
 let secureCache: { unfollowers: string[], fans: string[], mutuals: string[], newUnfollowers: string[], kutuLoncat: string[] } | null = null;
 
@@ -83,6 +84,50 @@ export default function Home() {
   const [isFirstScan, setIsFirstScan] = useState(false);
   const [accountMode, setAccountMode] = useState<'public' | 'private'>('public');
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [triggerRefresh, setTriggerRefresh] = useState(0);
+
+  const handleSwitchAccount = async (username: string) => {
+    try {
+      const stored = await getAccountScanFromDB(username);
+      if (stored) {
+        setIsDemo(false);
+        secureCache = {
+          unfollowers: stored.data.unfollowers,
+          fans: stored.data.fans,
+          mutuals: stored.data.mutuals,
+          newUnfollowers: stored.newUnfollowers || [],
+          kutuLoncat: stored.kutuLoncat || []
+        };
+
+        const currentIsPremium = getUnlockedAccounts().includes(stored.username || 'my_account');
+        
+        const dataForState = { ...stored.data };
+        if (!currentIsPremium) {
+          dataForState.unfollowers = stored.data.unfollowers.slice(0, 100);
+          dataForState.fans = stored.data.fans.slice(0, 100);
+          dataForState.mutuals = stored.data.mutuals.slice(0, 100);
+        }
+
+        setResult(dataForState);
+        setNewUnfollowers(!currentIsPremium ? (stored.newUnfollowers || []).slice(0, 100) : (stored.newUnfollowers || []));
+        setKutuLoncat(!currentIsPremium ? (stored.kutuLoncat || []).slice(0, 100) : (stored.kutuLoncat || []));
+        setIsFirstScan(stored.isFirstScan || false);
+        
+        try {
+          localStorage.setItem('followins_latest_session', JSON.stringify({
+            result: stored.data,
+            newUnfollowers: stored.newUnfollowers || [],
+            kutuLoncat: stored.kutuLoncat || [],
+            isFirstScan: stored.isFirstScan || false
+          }));
+        } catch (e) {}
+
+        setStatus('done');
+      }
+    } catch (error) {
+      console.error('Failed to switch account:', error);
+    }
+  };
 
   const isPremium = result ? getUnlockedAccounts().includes(result.ownerUsername || 'my_account') : false;
 
@@ -237,6 +282,11 @@ export default function Home() {
         }));
       } catch(e) {}
       
+      // Save demo to IndexedDB for Account Switcher testing
+      saveAccountScanToDB(demoData.ownerUsername, demoData as ParseResult, allNewUnf, allKutu, false).then(() => {
+        setTriggerRefresh(prev => prev + 1);
+      });
+      
       setStatus('done');
     }, 2500);
   };
@@ -325,6 +375,12 @@ export default function Home() {
       console.warn("Storage is full, cannot save session.");
     }
     
+    // Multi-Account Support: Save to IndexedDB (No quota limits)
+    if (data.ownerUsername) {
+      await saveAccountScanToDB(data.ownerUsername, data, finalNewUnf, finalKutuLoncat, finalIsFirstScan);
+      setTriggerRefresh(prev => prev + 1);
+    }
+    
     setStatus('done');
   };
 
@@ -332,7 +388,12 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-zinc-50 text-zinc-900 font-sans relative">
       <div className="relative z-10 flex flex-col min-h-screen">
       <div className="print:hidden sticky top-0 z-[100]">
-        <Header showNav={status === 'idle'} />
+        <Header 
+          showNav={status === 'idle'} 
+          currentUsername={result?.ownerUsername || null}
+          onSwitchAccount={handleSwitchAccount}
+          triggerRefresh={triggerRefresh}
+        />
       </div>
         
         <main className="flex-1 flex flex-col">

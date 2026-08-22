@@ -4,12 +4,16 @@ import { Globe, ArrowUpCircle, Moon, Sun } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useTheme } from '@/components/ThemeContext';
 import { usePathname, useRouter } from 'next/navigation';
+import AccountSwitcher from './AccountSwitcher';
 
 interface HeaderProps {
   showNav?: boolean;
+  currentUsername?: string | null;
+  onSwitchAccount?: (username: string) => void;
+  triggerRefresh?: number;
 }
 
-export default function Header({ showNav = true }: HeaderProps = {}) {
+export default function Header({ showNav = true, currentUsername = null, onSwitchAccount, triggerRefresh = 0 }: HeaderProps = {}) {
   const { t, toggleLanguage } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
   const pathname = usePathname();
@@ -60,6 +64,14 @@ export default function Header({ showNav = true }: HeaderProps = {}) {
       )}
 
       <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
+        {onSwitchAccount && (
+          <AccountSwitcher 
+            currentUsername={currentUsername} 
+            onSwitchAccount={onSwitchAccount} 
+            triggerRefresh={triggerRefresh} 
+          />
+        )}
+
         <button 
           onClick={toggleTheme}
           className="flex items-center justify-center w-10 h-10 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors hover:text-zinc-900"
