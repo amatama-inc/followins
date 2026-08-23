@@ -41,6 +41,7 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] Buat komponen `PaywallModal.tsx` dengan UI *mock-up* pembayaran QRIS.
 - [x] **Keamanan Paywall (Anti-F12):** Terapkan pencegahan *Inspect Element* dengan hanya me-render 100 data acak terdekripsi ke DOM, dan sisanya digantikan dengan *Skeleton Dummy Data* hingga pembayaran berhasil. (Dilengkapi dengan enkripsi XOR Cipher + Base64 pada `crypto.ts`).
 - [x] **Monetisasi Mikro:** Kunci fitur Sortir Abjad dan batasi klik tautan profil eksternal (maksimal 10 profil unik per hari) di dalam `UserTable` untuk pengguna gratis.
+- [x] **Infrastruktur Monetisasi Pasif:** Implementasi komponen `DummyAd.tsx` (*Mockup* UI) untuk menyimulasikan tata letak (*layouting*) Iklan Google AdSense/Affiliate pada posisi strategis: *Sticky Banner* di bawah layar, *In-Feed* (setiap 5 baris di tabel CRM), *Interstitial* di layar *Loading/Extracting*, dan *Sidebar* di Desktop.
 
 ## Tahap 5: Standar Produksi (Keamanan, SEO & Support)
 - [x] **Error Handling:** Tambahkan logika pengecekan ekstensi file (harus `.zip`) dan batas maksimal ukuran (100MB) pada `ZipUploader.tsx`.
@@ -61,11 +62,10 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 
 **Monetisasi & Bisnis:**
 - [ ] Integrasi Payment Gateway Otomatis (Midtrans/Xendit).
-- [ ] Sistem Premium Bertingkat (Multi-Tier Paywall).
+- [ ] Sistem Premium Bertingkat (Multi-Tier Paywall) & Komponen UI *Pricing Section* (Menampilkan perbandingan fitur Paket Gratis vs Paket Berbayar/Jual Putus).
 - [ ] Sistem Kode Lisensi Premium (Multi-Device & Cross-Account) dengan limitasi via Cloudflare KV.
 - [ ] Ekspor Laporan PDF Profesional B2B (White-label Logo).
 - [ ] Model Bisnis "Jual Putus" (One-Time Audit).
-- [ ] Penempatan Iklan AdSense & Affiliate (Sticky Banner, In-Feed, Interstitial, Sidebar).
 
 **Infrastruktur & Keamanan:**
 - [ ] Strategi Deployment Ganda (Vercel untuk evaluasi/staging, Cloudflare Pages untuk *Production*).

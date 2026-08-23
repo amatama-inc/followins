@@ -15,6 +15,7 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Paywall "Bait":** Versi gratis yang membatasi tampilan hingga 100 akun pertama secara acak.
 - **Rate Limiting Anti-Spam:** Membatasi unggahan ZIP maksimal 5x per bulan per perangkat (menggunakan *FingerprintJS*).
 - **Dashboard Visual:** Grafik interaktif untuk visualisasi pertumbuhan (*Growth Chart*), demografi (*Cohort*), retensi pengikut, dan **Filter Rentang Waktu Kustom** (*Custom Date Range*).
+- **Infrastruktur Iklan Pasif:** *Mockup layouting* Iklan Google AdSense/Affiliate pada posisi strategis (*Sticky Banner*, *In-Feed*, *Interstitial*, *Sidebar*).
 
 ---
 
@@ -33,22 +34,27 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Sistem Monetisasi 2 Pilihan:**
   - **Paket "Premium" (Rp 15.000):**
     - Menembus *paywall* dan membuka 100% data untuk akun Instagram yang sedang dianalisis saat itu.
-    - **Akses Berulang Terbatas:** Pengguna tetap dapat menutup browser atau mengunggah file ZIP baru di kemudian hari *tanpa* harus membayar ulang, **dengan syarat mutlak:** file ZIP tersebut harus dari **username Instagram yang sama** dan diunggah dari **perangkat (device) yang sama** saat pembelian dilakukan.
-    - Jika pengguna mencoba mengakses dari perangkat lain (meskipun username-nya sama), atau mengunggah ZIP dari username berbeda di perangkat awal, sistem akan memblokir dan mereka harus membayar Rp 15.000 lagi. Opsi ini **tidak** memberikan kode lisensi.
-  - **Paket "Premium+" (Rp 50.000):**
-    - Pengguna mendapatkan **Kode Lisensi Unik** (tanpa sistem *Login/Password*).
-    - **Masa Aktif:** Lisensi berlaku selama **1 tahun** penuh sejak pembelian.
-    - **Kebebasan Penuh (*Cross-Account* & *Cross-Device*):** Berbeda dengan paket biasa, pengguna Premium+ dapat login/memasukkan kode di perangkat lain dan bebas mengunggah file ZIP dari **username Instagram mana saja** (tidak dikunci ke satu username tertentu). Sangat cocok untuk pengguna multi-akun atau Agensi B2B.
-    - **Batas Perangkat (Device Limit):** Divalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada **1 ID perangkat unik** secara bersamaan. Jika lisensi dipakai di perangkat baru, sesi di perangkat lama otomatis akan ditendang/dicabut.
+- **Sistem Premium Bertingkat (Multi-Tier Paywall) & UI Pricing Section:** Memperluas skema monetisasi dari sistem satu harga menjadi paket berjenjang (*Tiering*). Membangun komponen **Section Harga (Pricing/Packages)** yang menampilkan perbandingan fitur antara "Paket Dasar" (menampilkan sebagian nama) dan "Paket Penuh" (seluruh daftar 100%), serta opsi audit "Jual Putus".
+- **Lisensi Premium Lintas Akun & Sistem Kode Akses (License Key):** Menerapkan skema validasi premium menggunakan **Kode Lisensi Unik** (tanpa sistem *Login/Password* demi menjaga arsitektur *Privacy-First*). 
+  - Pengguna yang membeli lisensi dapat menggunakan kode tersebut untuk menembus *paywall* pada banyak file akun Instagram (*Cross-Account*) tanpa membayar langganan terpisah.
+  - **Dukungan Multi-Device:** Kode lisensi dapat dimasukkan di perangkat lain (misal dari PC ke *Smartphone*), mengizinkan pengguna menikmati fitur premium di gawai yang berbeda.
+  - **Anti-Pembajakan (Device Limit):** Tervalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada 2-3 ID perangkat unik secara bersamaan untuk mencegah penyalahgunaan berbagi lisensi (*account sharing*) di internet.
+- **Paket "Premium" (Rp 15.000):**
+  - Menembus *paywall* dan membuka 100% data untuk akun Instagram yang sedang dianalisis saat itu.
+  - **Akses Berulang Terbatas:** Pengguna tetap dapat menutup browser atau mengunggah file ZIP baru di kemudian hari *tanpa* harus membayar ulang, **dengan syarat mutlak:** file ZIP tersebut harus dari **username Instagram yang sama** dan diunggah dari **perangkat (device) yang sama** saat pembelian dilakukan.
+  - Jika pengguna mencoba mengakses dari perangkat lain (meskipun username-nya sama), atau mengunggah ZIP dari username berbeda di perangkat awal, sistem akan memblokir dan mereka harus membayar Rp 15.000 lagi. Opsi ini **tidak** memberikan kode lisensi.
+- **Paket "Premium+" (Rp 50.000):**
+  - Pengguna mendapatkan **Kode Lisensi Unik** (tanpa sistem *Login/Password*).
+  - **Masa Aktif:** Lisensi berlaku selama **1 tahun** penuh sejak pembelian.
+  - **Kebebasan Penuh (*Cross-Account* & *Cross-Device*):** Berbeda dengan paket biasa, pengguna Premium+ dapat login/memasukkan kode di perangkat lain dan bebas mengunggah file ZIP dari **username Instagram mana saja** (tidak dikunci ke satu username tertentu). Sangat cocok untuk pengguna multi-akun atau Agensi B2B.
+  - **Batas Perangkat (Device Limit):** Divalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada **1 ID perangkat unik** secara bersamaan. Jika lisensi dipakai di perangkat baru, sesi di perangkat lama otomatis akan ditendang/dicabut.
 - **Ekspor Laporan PDF Profesional (White-label):** Generator laporan eksklusif berbentuk PDF/CSV yang memungkinkan Manajer Sosial Media (*Agensi B2B*) mengunggah logo perusahaan mereka sendiri di dokumen laporan.
-- **Ruang Monetisasi Iklan (Google AdSense & Affiliate):** Memanfaatkan efisiensi biaya server (*Client-Side*) dengan menyisipkan slot iklan yang **tidak mengganggu** untuk meraup pendapatan pasif dari lalu lintas pengguna gratis. Rencana titik penempatan (Ad Placements):
-  - **Sticky Banner Bawah (Mobile Friendly):** Iklan *banner* horizontal yang menempel statis di bagian bawah layar perangkat seluler.
-  - **In-Feed Ads (Di Sela Tabel CRM):** Iklan *native* yang membaur secara estetik di antara daftar baris akun "Kutu Loncat" atau "Super Fans" agar tidak terlihat seperti iklan *spam*.
-  - **Loading Screen Interstitial:** Iklan *Display* besar yang muncul hanya selama beberapa detik ketika sistem JSZip sedang mengekstrak dan memproses file ZIP (waktu tunggu krusial).
-  - **Sidebar Kosong (Desktop):** Pemanfaatan ruang kosong di sisi kanan/kiri *dashboard* khusus untuk pengguna *desktop/PC*.
-- **Sistem Pemulihan Akses (Recovery) & SOP Pelayanan Pelanggan:** Untuk memitigasi kelemahan arsitektur *Client-Side* di mana pengguna bisa kehilangan riwayat pembayaran jika membersihkan *Cache/Data* browser:
-  1. **Ketahanan *FingerprintJS*:** Pelacakan perangkat tidak hanya berbasis *cookies*, tapi menggunakan spesifikasi *hardware* (GPU, RAM, OS). Jika pengguna sekadar melakukan *Clear Cache*, ID Perangkat (*Fingerprint*) akan tetap sama. Sistem *Cloudflare KV* akan otomatis mengenali perangkat tersebut dan membuka *paywall* tanpa hambatan.
-  2. **Pemulihan Mandiri (Via ID Transaksi):** Jika *Fingerprint* berubah, UI menyediakan tombol "Pulihkan Akses". Pengguna paket Premium (Rp 15.000) cukup memasukkan ID Transaksi (Order ID) dari pembayaran QRIS mereka. Sistem akan memvalidasi apakah ID tersebut cocok dengan *username* Instagram yang sedang diunggah.
+- **Model Bisnis "Jual Putus" (One-Time Audit):** Skema pembayaran sekali transaksi (bukan langganan) bagi *influencer* yang hanya membutuhkan laporan mendalam secara periodik (misal: audit setiap 3 bulan).
+
+#### 4.2.1. SOP Solusi Kebuntuan (*Fallback Resolution*)
+Jika di masa depan skema Cloudflare KV terbentur oleh batasan teknis (misal: kebijakan baru Cloudflare, batas API *rate-limit* terlampaui saat web viral, atau pengguna lupa mencatat Kode Lisensi/ID Transaksi), maka model bisnis tidak boleh runtuh. Berikut adalah 3 lapis SOP cadangan untuk memastikan pelanggan yang telah membayar tidak merasa tertipu:
+  1. **Tombol "Pulihkan Pembelian" (Restore Purchase):** Menyediakan tombol darurat yang memicu pelacakan ulang berbasis riwayat transaksi *Local Storage* terdahulu sebagai bukti pembayaran sementara.
+  2. **Validasi Resi/ID Transaksi QRIS:** Meminta pengguna memasukkan 6 digit terakhir nomor referensi QRIS/Midtrans dari aplikasi m-Banking/GoPay mereka ke dalam *form* khusus untuk melacak ulang pembelian.
   3. **SOP Kompensasi Admin (*Customer Delight*):** Jika sistem di atas gagal (pengguna ganti HP dan lupa ID Transaksi) lalu menghubungi *Support*, admin cukup meminta bukti transfer QRIS. SOP utamanya adalah admin langsung membagikan 1 **Kode Lisensi Premium+ (Rp 50.000) secara gratis** sebagai bentuk kompensasi (karena biaya produksinya Rp 0). Ini dirancang untuk mengubah kekecewaan pelanggan menjadi kepuasan ekstrem yang memicu promosi gratis dari mulut ke mulut (*Word of Mouth*).
 
 ### 4.3. Infrastruktur, Keamanan, & Distribusi

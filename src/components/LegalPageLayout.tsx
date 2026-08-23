@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import DummyAd from '@/components/DummyAd';
 import { useLanguage } from '@/i18n/LanguageContext';
 import Link from 'next/link';
 import { ReactNode } from 'react';
@@ -15,8 +16,13 @@ export default function LegalPageLayout({ children }: LegalPageLayoutProps) {
     <div className="flex flex-col min-h-screen bg-zinc-50 text-zinc-900 font-sans">
       <Header />
       
-      <main className="flex-1 flex flex-col px-6 py-10 md:py-12 max-w-4xl mx-auto w-full">
-        <div className="relative overflow-hidden bg-zinc-900 p-6 md:p-10 rounded-3xl shadow-lg border border-zinc-800">
+      <main className="flex-1 flex flex-col px-6 py-10 md:py-12 max-w-5xl mx-auto w-full items-center">
+        {/* Ad: Top Legal Page (Outside Card) */}
+        <div className="w-full flex justify-center mb-8">
+          <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+        </div>
+
+        <div className="relative overflow-hidden bg-zinc-900 p-6 md:p-10 rounded-3xl shadow-lg border border-zinc-800 max-w-4xl w-full">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
           
           <div className="relative z-10">
@@ -28,6 +34,12 @@ export default function LegalPageLayout({ children }: LegalPageLayoutProps) {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Ad: Bottom Legal Page (Outside Card) - 2 Baris Iklan */}
+        <div className="w-full flex flex-col gap-6 mt-8">
+          <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+          <DummyAd variant="in-feed" className="!my-0 max-w-full" />
         </div>
       </main>
 

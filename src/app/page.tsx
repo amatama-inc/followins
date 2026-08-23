@@ -12,6 +12,7 @@ import HowItWorks from '@/components/HowItWorks';
 import Features from '@/components/Features';
 import PrivacySection from '@/components/PrivacySection';
 import FAQ from '@/components/FAQ';
+import DummyAd from '@/components/DummyAd';
 import dynamic from 'next/dynamic';
 
 const HistoryWidget = dynamic(() => import('@/components/HistoryWidget'), { ssr: false });
@@ -38,6 +39,7 @@ let secureCache: { unfollowers: string[], fans: string[], mutuals: string[], new
 export default function Home() {
   const { t, language } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle');
+  const [parseCompleted, setParseCompleted] = useState(false);
   const [result, setResult] = useState<ParseResult | null>(null);
   const [history, setHistory] = useState<HistoryRecord[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -287,20 +289,21 @@ export default function Home() {
         setTriggerRefresh(prev => prev + 1);
       });
       
-      setStatus('done');
-    }, 2500);
+      setParseCompleted(true);
+    }, 8000);
   };
 
   const handleFile = async (file: File) => {
     setIsDemo(false);
     setStatus('loading');
+    setParseCompleted(false);
     
     const startTime = Date.now();
     const data = await parseInstagramZip(file);
     const elapsed = Date.now() - startTime;
     
-    if (elapsed < 3800) {
-      await new Promise(r => setTimeout(r, 3800 - elapsed));
+    if (elapsed < 8000) {
+      await new Promise(r => setTimeout(r, 8000 - elapsed));
     }
     
     // Feature: Historical Tracker & Kutu Loncat Detector
@@ -381,7 +384,7 @@ export default function Home() {
       setTriggerRefresh(prev => prev + 1);
     }
     
-    setStatus('done');
+    setParseCompleted(true);
   };
 
   return (
@@ -478,10 +481,22 @@ export default function Home() {
             </motion.div>
             
             <hr className="w-full border-zinc-300" />
+            
+            <div className="w-full flex justify-center py-6">
+              <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+            </div>
+
+            <hr className="w-full border-zinc-300" />
 
             <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6 }}>
               <HowItWorks />
             </motion.div>
+
+            <hr className="w-full border-zinc-300" />
+            
+            <div className="w-full flex justify-center py-6">
+              <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+            </div>
 
             <hr className="w-full border-zinc-300" />
 
@@ -490,10 +505,22 @@ export default function Home() {
             </motion.div>
 
             <hr className="w-full border-zinc-300" />
+            
+            <div className="w-full flex justify-center py-6">
+              <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+            </div>
+
+            <hr className="w-full border-zinc-300" />
 
             <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6 }}>
               <PrivacySection />
             </motion.div>
+
+            <hr className="w-full border-zinc-300" />
+            
+            <div className="w-full flex justify-center py-6">
+              <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+            </div>
 
             <hr className="w-full border-zinc-300" />
 
@@ -504,13 +531,17 @@ export default function Home() {
         )}
 
         {status === 'loading' && (
-          <div className="w-full flex justify-center py-8 md:py-20 px-6">
-            <LoadingScreen />
+          <div className="w-full flex justify-center pt-4 pb-8 md:pt-8 md:pb-20 px-6">
+            <LoadingScreen 
+              isReady={parseCompleted} 
+              onContinue={() => setStatus('done')} 
+            />
           </div>
         )}
 
         {status === 'done' && result && (
-          <div className="w-full flex flex-col gap-5 items-center px-4 md:px-8 pt-8 pb-12 md:pb-20 max-w-[1400px] mx-auto">
+          <div className="w-full px-4 md:px-8 pt-8 pb-12 md:pb-20 max-w-[1400px] mx-auto flex flex-col xl:flex-row gap-6 items-start">
+            <div className="flex-1 w-full flex flex-col gap-5 items-center min-w-0">
             <div className="w-full flex flex-wrap gap-4 justify-between items-center mb-2 print:hidden">
               <button 
                 onClick={() => { setStatus('idle'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -566,6 +597,11 @@ export default function Home() {
                 </button>
               </div>
             </motion.div>
+            
+            {/* Ad: Top Dashboard Leaderboard */}
+            <div className="w-full flex justify-center pb-2">
+              <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+            </div>
 
             {/* Fitur Baru: New Unfollowers Alert */}
             <NewUnfollowersAlert newUnfollowers={newUnfollowers} kutuLoncat={kutuLoncat} isFirstScan={isFirstScan} accountMode={accountMode} />
@@ -625,6 +661,11 @@ export default function Home() {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} className="w-full">
               <GrowthChart data={result.timeline} />
             </motion.div>
+            
+            {/* Ad: In-Article Divider */}
+            <div className="w-full flex justify-center py-2">
+              <DummyAd variant="in-feed" className="!my-0 max-w-full" />
+            </div>
 
             <div className="w-full flex flex-col md:flex-row gap-5 items-stretch">
               <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-50px" }} className="w-full md:w-1/2 flex">
@@ -666,6 +707,12 @@ export default function Home() {
                 accountMode={accountMode}
               />
             </motion.div>
+            </div>
+            
+            {/* Sidebar Dummy Ad */}
+            <div className="hidden xl:block w-[300px] sticky top-24 shrink-0 print:hidden">
+              <DummyAd variant="sidebar" className="w-full h-full" />
+            </div>
           </div>
         )}
         </main>

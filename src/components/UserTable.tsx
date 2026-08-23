@@ -7,6 +7,8 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { getUserLabels, saveUserLabel } from '@/utils/storage';
 import UserListItem from './UserListItem';
 import { useUserFilter } from '@/hooks/useUserFilter';
+import DummyAd from './DummyAd';
+import React from 'react';
 
 interface UserTableProps {
   unfollowers: string[];
@@ -333,23 +335,29 @@ export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, i
             const isSelected = selectedUsers.includes(user);
             
             return (
-              <UserListItem 
-                key={actualIndex}
-                index={actualIndex + 1}
-                user={user}
-                isEditing={isEditing}
-                currentLabel={currentLabel}
-                isSelected={isSelected}
-                isPremium={isPremium}
-                presetOptions={presetOptions}
-                editInputValue={editInputValue}
-                language={language}
-                onEditChange={setEditInputValue}
-                onSetEditing={setEditingUser}
-                onSaveLabel={handleSaveLabel}
-                onToggleSelect={toggleSelect}
-                onOpenModal={() => setIsModalOpen(true)}
-              />
+              <React.Fragment key={actualIndex}>
+                <UserListItem 
+                  index={actualIndex + 1}
+                  user={user}
+                  isEditing={isEditing}
+                  currentLabel={currentLabel}
+                  isSelected={isSelected}
+                  isPremium={isPremium}
+                  presetOptions={presetOptions}
+                  editInputValue={editInputValue}
+                  language={language}
+                  onEditChange={setEditInputValue}
+                  onSetEditing={setEditingUser}
+                  onSaveLabel={handleSaveLabel}
+                  onToggleSelect={toggleSelect}
+                  onOpenModal={() => setIsModalOpen(true)}
+                />
+                {(idx + 1) % 5 === 0 && (
+                  <li className="col-span-full py-2 md:py-4">
+                    <DummyAd variant="in-feed" />
+                  </li>
+                )}
+              </React.Fragment>
             );
           })}
           
