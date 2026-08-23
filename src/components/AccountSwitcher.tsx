@@ -8,9 +8,10 @@ interface AccountSwitcherProps {
   currentUsername: string | null;
   onSwitchAccount: (username: string) => void;
   triggerRefresh: number;
+  onHasAccounts?: (hasAccounts: boolean) => void;
 }
 
-export default function AccountSwitcher({ currentUsername, onSwitchAccount, triggerRefresh }: AccountSwitcherProps) {
+export default function AccountSwitcher({ currentUsername, onSwitchAccount, triggerRefresh, onHasAccounts }: AccountSwitcherProps) {
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [accounts, setAccounts] = useState<{username: string, lastScanDate: number}[]>([]);
@@ -20,9 +21,12 @@ export default function AccountSwitcher({ currentUsername, onSwitchAccount, trig
     const fetchAccounts = async () => {
       const stored = await getAllStoredAccounts();
       setAccounts(stored);
+      if (onHasAccounts) {
+        onHasAccounts(stored.length > 0);
+      }
     };
     fetchAccounts();
-  }, [triggerRefresh, isOpen]);
+  }, [triggerRefresh, isOpen, onHasAccounts]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,14 +55,14 @@ export default function AccountSwitcher({ currentUsername, onSwitchAccount, trig
     <div className="relative" ref={dropdownRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm"
+        className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm"
         title="Switch Account"
       >
-        <Users size={16} className="text-zinc-600 dark:text-zinc-400" />
-        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300 max-w-[100px] truncate">
+        <Users className="text-zinc-600 dark:text-zinc-400 w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        <span className="text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300 max-w-[50px] sm:max-w-[100px] truncate">
           {currentUsername ? `@${currentUsername}` : 'Accounts'}
         </span>
-        <ChevronDown size={14} className="text-zinc-400" />
+        <ChevronDown className="text-zinc-400 w-3 h-3 sm:w-3.5 sm:h-3.5" />
       </button>
 
       <AnimatePresence>

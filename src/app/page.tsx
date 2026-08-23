@@ -93,6 +93,9 @@ export default function Home() {
       const stored = await getAccountScanFromDB(username);
       if (stored) {
         setIsDemo(false);
+        setStatus('loading');
+        setParseCompleted(false);
+        
         secureCache = {
           unfollowers: stored.data.unfollowers,
           fans: stored.data.fans,
@@ -124,7 +127,9 @@ export default function Home() {
           }));
         } catch (e) {}
 
-        setStatus('done');
+        setTimeout(() => {
+          setParseCompleted(true);
+        }, 8000);
       }
     } catch (error) {
       console.error('Failed to switch account:', error);
@@ -163,6 +168,9 @@ export default function Home() {
         const session = JSON.parse(stored);
         if (session && session.result) {
           setIsDemo(false);
+          setStatus('loading');
+          setParseCompleted(false);
+          
           secureCache = {
             unfollowers: session.result.unfollowers,
             fans: session.result.fans,
@@ -184,7 +192,10 @@ export default function Home() {
           setNewUnfollowers(!currentIsPremium ? (session.newUnfollowers || []).slice(0, 100) : (session.newUnfollowers || []));
           setKutuLoncat(!currentIsPremium ? (session.kutuLoncat || []).slice(0, 100) : (session.kutuLoncat || []));
           setIsFirstScan(session.isFirstScan || false);
-          setStatus('done');
+          
+          setTimeout(() => {
+            setParseCompleted(true);
+          }, 8000);
         }
       }
     } catch (e) {
