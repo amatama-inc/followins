@@ -99,7 +99,7 @@ export default function UserListItem({
                       
                       const hasClickedBefore = clickedUsers.includes(user);
                       
-                      if (!hasClickedBefore && clickedUsers.length >= 10) {
+                      if (!hasClickedBefore && clickedUsers.length >= 100) {
                         e.preventDefault();
                         onOpenModal();
                       } else if (!hasClickedBefore) {

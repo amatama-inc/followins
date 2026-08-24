@@ -12,10 +12,11 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Ekstraksi Client-Side (JSZip):** Pemrosesan data yang 100% aman di browser tanpa melibatkan server.
 - **Sistem CRM Mini:** Kemampuan melabeli akun (Teman, Abaikan, dll) dan melakukan pencarian.
 - **Manajemen Multi-Akun (*Cross-Account*):** Beralih profil akun secara instan tanpa perlu re-upload file ZIP, diotaki oleh sistem *IndexedDB* lokal.
-- **Paywall "Bait":** Versi gratis yang membatasi tampilan hingga 100 akun pertama secara acak.
-- **Rate Limiting Anti-Spam:** Membatasi unggahan ZIP maksimal 5x per bulan per perangkat (menggunakan *FingerprintJS*).
+- **Paywall "Bait":** Versi gratis yang membatasi tampilan hingga 250 akun pertama secara acak.
+- **Rate Limiting Anti-Spam:** Membatasi unggahan ZIP maksimal 20x per bulan per perangkat (menggunakan *FingerprintJS*).
 - **Dashboard Visual:** Grafik interaktif untuk visualisasi pertumbuhan (*Growth Chart*), demografi (*Cohort*), retensi pengikut, dan **Filter Rentang Waktu Kustom** (*Custom Date Range*).
 - **Infrastruktur Iklan Pasif:** *Mockup layouting* Iklan Google AdSense/Affiliate pada posisi strategis (*Sticky Banner*, *In-Feed*, *Interstitial*, *Sidebar*).
+- **Sistem Anti-AdBlocker:** Detektor *ad-block* cerdas untuk memohon *whitelist* atau meminta donasi kompensasi secara persuasif.
 
 ---
 
@@ -30,7 +31,7 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Super Fans Leaderboard:** Memetakan 10 pengikut paling interaktif berdasarkan frekuensi *likes/comments*, yang sangat berguna untuk program *Giveaway*.
 
 ### 4.2. Monetisasi & Sistem Bisnis
-- **Integrasi Payment Gateway Otomatis (QRIS):** Mengganti UI simulasi QRIS saat ini dengan API riil (seperti Midtrans atau Xendit) agar transaksi mikro untuk membuka batas *paywall* 100 nama tervalidasi secara instan tanpa tenaga admin.
+- **Integrasi Payment Gateway Otomatis (QRIS):** Mengganti UI simulasi QRIS saat ini dengan API riil (seperti Midtrans atau Xendit) agar transaksi mikro untuk membuka batas *paywall* 250 nama tervalidasi secara instan tanpa tenaga admin.
 - **Sistem Monetisasi 2 Pilihan:**
   - **Paket "Premium" (Rp 15.000):**
     - Menembus *paywall* dan membuka 100% data untuk akun Instagram yang sedang dianalisis saat itu.

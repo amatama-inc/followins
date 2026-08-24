@@ -22,6 +22,7 @@ import { ThemeProvider } from "@/components/ThemeContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import DummyAd from "@/components/DummyAd";
+import AdBlockDetector from "@/components/AdBlockDetector";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -31,7 +32,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col transition-colors duration-300 overflow-x-hidden w-full relative">
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            {children}
+            <AdBlockDetector />
+          </LanguageProvider>
           <DummyAd variant="sticky" />
         </ThemeProvider>
         <Analytics />

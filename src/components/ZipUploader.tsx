@@ -42,12 +42,13 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
         } catch(e) {}
       }
       
-      if (data.count >= 5) {
+      if (data.count >= 20) {
         setIsChecking(false);
-        const msg = language === 'en' 
-          ? "You have reached the limit of 5 uploads per month for this device."
-          : "Anda telah mencapai batas maksimal 5 kali upload per bulan untuk perangkat ini.";
-        alert(msg);
+        toast.error(
+          language === 'en'
+            ? "You have reached the limit of 20 uploads per month for this device."
+            : "Anda telah mencapai batas maksimal 20 kali upload per bulan untuk perangkat ini."
+        );
         return false;
       }
       
@@ -84,6 +85,10 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
+      if (file.size > 100 * 1024 * 1024) { // 100MB limit
+        alert(language === 'en' ? "File is too large. Maximum size is 100MB." : "Ukuran file terlalu besar. Maksimal 100MB.");
+        return;
+      }
       if (file.name.endsWith('.zip')) {
         const allowed = await checkLimit();
         if (allowed) {
@@ -99,6 +104,11 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
     e.preventDefault();
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      if (file.size > 100 * 1024 * 1024) { // 100MB limit
+        alert(language === 'en' ? "File is too large. Maximum size is 100MB." : "Ukuran file terlalu besar. Maksimal 100MB.");
+        e.target.value = '';
+        return;
+      }
       if (file.name.endsWith('.zip')) {
         const allowed = await checkLimit();
         if (allowed) {

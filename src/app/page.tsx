@@ -108,14 +108,14 @@ export default function Home() {
         
         const dataForState = { ...stored.data };
         if (!currentIsPremium) {
-          dataForState.unfollowers = stored.data.unfollowers.slice(0, 100);
-          dataForState.fans = stored.data.fans.slice(0, 100);
-          dataForState.mutuals = stored.data.mutuals.slice(0, 100);
+          dataForState.unfollowers = stored.data.unfollowers.slice(0, 250);
+          dataForState.fans = stored.data.fans.slice(0, 250);
+          dataForState.mutuals = stored.data.mutuals.slice(0, 250);
         }
 
         setResult(dataForState);
-        setNewUnfollowers(!currentIsPremium ? (stored.newUnfollowers || []).slice(0, 100) : (stored.newUnfollowers || []));
-        setKutuLoncat(!currentIsPremium ? (stored.kutuLoncat || []).slice(0, 100) : (stored.kutuLoncat || []));
+        setNewUnfollowers(!currentIsPremium ? (stored.newUnfollowers || []).slice(0, 250) : (stored.newUnfollowers || []));
+        setKutuLoncat(!currentIsPremium ? (stored.kutuLoncat || []).slice(0, 250) : (stored.kutuLoncat || []));
         setIsFirstScan(stored.isFirstScan || false);
         
         try {
@@ -183,14 +183,14 @@ export default function Home() {
           
           const dataForState = { ...session.result };
           if (!currentIsPremium) {
-            dataForState.unfollowers = session.result.unfollowers.slice(0, 100);
-            dataForState.fans = session.result.fans.slice(0, 100);
-            dataForState.mutuals = session.result.mutuals.slice(0, 100);
+            dataForState.unfollowers = session.result.unfollowers.slice(0, 250);
+            dataForState.fans = session.result.fans.slice(0, 250);
+            dataForState.mutuals = session.result.mutuals.slice(0, 250);
           }
 
           setResult(dataForState);
-          setNewUnfollowers(!currentIsPremium ? (session.newUnfollowers || []).slice(0, 100) : (session.newUnfollowers || []));
-          setKutuLoncat(!currentIsPremium ? (session.kutuLoncat || []).slice(0, 100) : (session.kutuLoncat || []));
+          setNewUnfollowers(!currentIsPremium ? (session.newUnfollowers || []).slice(0, 250) : (session.newUnfollowers || []));
+          setKutuLoncat(!currentIsPremium ? (session.kutuLoncat || []).slice(0, 250) : (session.kutuLoncat || []));
           setIsFirstScan(session.isFirstScan || false);
           
           setTimeout(() => {
@@ -276,14 +276,14 @@ export default function Home() {
       
       const dataForState = { ...demoData };
       if (!currentIsPremium) {
-        dataForState.unfollowers = demoData.unfollowers.slice(0, 100);
-        dataForState.fans = demoData.fans.slice(0, 100);
-        dataForState.mutuals = demoData.mutuals.slice(0, 100);
+        dataForState.unfollowers = demoData.unfollowers.slice(0, 250);
+        dataForState.fans = demoData.fans.slice(0, 250);
+        dataForState.mutuals = demoData.mutuals.slice(0, 250);
       }
       
       setResult(dataForState as any);
-      setNewUnfollowers(!currentIsPremium ? allNewUnf.slice(0, 100) : allNewUnf);
-      setKutuLoncat(!currentIsPremium ? allKutu.slice(0, 100) : allKutu);
+      setNewUnfollowers(!currentIsPremium ? allNewUnf.slice(0, 250) : allNewUnf);
+      setKutuLoncat(!currentIsPremium ? allKutu.slice(0, 250) : allKutu);
       setIsFirstScan(false);
       
       try {
@@ -356,13 +356,13 @@ export default function Home() {
     // 2. Buat versi terpotong untuk React State jika gratisan
     const dataForState = { ...data };
     if (!currentIsPremium) {
-      dataForState.unfollowers = data.unfollowers.slice(0, 100);
-      dataForState.fans = data.fans.slice(0, 100);
-      dataForState.mutuals = data.mutuals.slice(0, 100);
+      dataForState.unfollowers = data.unfollowers.slice(0, 250);
+      dataForState.fans = data.fans.slice(0, 250);
+      dataForState.mutuals = data.mutuals.slice(0, 250);
     }
     
-    setNewUnfollowers(!currentIsPremium ? finalNewUnf.slice(0, 100) : finalNewUnf);
-    setKutuLoncat(!currentIsPremium ? finalKutuLoncat.slice(0, 100) : finalKutuLoncat);
+    setNewUnfollowers(!currentIsPremium ? finalNewUnf.slice(0, 250) : finalNewUnf);
+    setKutuLoncat(!currentIsPremium ? finalKutuLoncat.slice(0, 250) : finalKutuLoncat);
     
     // Save current data for next scan (this uses original full data thanks to ParseResult being the full object originally)
     saveLastScanData(trackerUsername, data.unfollowers, data.fans, data.mutuals);
@@ -732,9 +732,22 @@ export default function Home() {
           <Footer />
         </div>
 
-        {/* Floating Tutorial Button for Mobile */}
+        {/* Floating Action Buttons (Global) */}
         {status === 'idle' && (
-          <div className="md:hidden fixed bottom-6 right-6 z-[90] print:hidden">
+          <div className="fixed bottom-20 md:bottom-32 right-6 lg:right-12 z-[90] print:hidden flex flex-col gap-4 items-center">
+            
+            {/* Tombol Donasi (Kopi) */}
+            <a 
+              href="https://trakteer.id/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-14 h-14 bg-amber-500 text-white rounded-full shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:bg-amber-600 hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] active:scale-95 transition-all duration-200"
+              title="Support Us"
+            >
+              <span className="text-2xl mt-0.5">☕</span>
+            </a>
+
+            {/* Tombol Tutorial (Bantuan) */}
             <button 
               onClick={() => {
                 document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });

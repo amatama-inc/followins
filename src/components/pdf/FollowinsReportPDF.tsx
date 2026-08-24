@@ -261,7 +261,7 @@ const getTranslations = (lang: 'en' | 'id' = 'en') => {
   };
 };
 
-export const FollowinsReportPDF: React.FC<FollowinsReportPDFProps> = ({ data, limit = 100, language = 'en' }) => {
+export const FollowinsReportPDF: React.FC<FollowinsReportPDFProps> = ({ data, limit = 250, language = 'en' }) => {
   const t = getTranslations(language);
   const currentDate = new Date().toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
     year: 'numeric',

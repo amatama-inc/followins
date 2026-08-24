@@ -16,7 +16,7 @@ interface PDFDownloadModalProps {
 }
 
 export const PDFDownloadModal: React.FC<PDFDownloadModalProps> = ({ isOpen, onClose, isPremium, data, language }) => {
-  const [selectedLimit, setSelectedLimit] = useState<number>(100);
+  const [selectedLimit, setSelectedLimit] = useState<number>(250);
   const [isGenerating, setIsGenerating] = useState(false);
 
   if (!isOpen || !data) return null;
@@ -31,7 +31,7 @@ export const PDFDownloadModal: React.FC<PDFDownloadModalProps> = ({ isOpen, onCl
     setIsGenerating(true);
     try {
       // Determine actual limit: -1 means all
-      const limit = isPremium ? selectedLimit : 100;
+      const limit = isPremium ? selectedLimit : 250;
       
       const blob = await pdf(<FollowinsReportPDF data={data} limit={limit} language={language} />).toBlob();
       const url = URL.createObjectURL(blob);
@@ -54,9 +54,9 @@ export const PDFDownloadModal: React.FC<PDFDownloadModalProps> = ({ isOpen, onCl
 
   const t = {
     title: language === 'en' ? 'Download PDF Report' : 'Unduh Laporan PDF',
-    descFree: language === 'en' ? 'Free version is limited to 100 data rows.' : 'Versi gratis dibatasi maksimal 100 baris data.',
+    descFree: language === 'en' ? 'Free version is limited to 250 data rows.' : 'Versi gratis dibatasi maksimal 250 baris data.',
     descPremium: language === 'en' ? 'Select how much data to include in the report.' : 'Pilih berapa banyak data yang ingin disertakan dalam laporan.',
-    opt100: language === 'en' ? 'First 100 Data' : '100 Data Pertama',
+    opt100: language === 'en' ? 'First 250 Data' : '250 Data Pertama',
     optHalf: language === 'en' ? `Half Data (${halfItems})` : `Setengah Data (${halfItems})`,
     optAll: language === 'en' ? `All Data (${totalItems})` : `Seluruh Data (${totalItems})`,
     btnGen: language === 'en' ? 'Generate & Download' : 'Buat & Unduh',
@@ -99,13 +99,13 @@ export const PDFDownloadModal: React.FC<PDFDownloadModalProps> = ({ isOpen, onCl
 
           {isPremium && (
             <div className="flex flex-col gap-3 mb-6">
-              <label className={`flex items-center gap-3 p-3 rounded-xl border ${selectedLimit === 100 ? 'border-zinc-900 bg-zinc-50' : 'border-zinc-200'} cursor-pointer transition-colors`}>
+              <label className={`flex items-center gap-3 p-3 rounded-xl border ${selectedLimit === 250 ? 'border-zinc-900 bg-zinc-50' : 'border-zinc-200'} cursor-pointer transition-colors`}>
                 <input 
                   type="radio" 
                   name="limit" 
-                  value={100} 
-                  checked={selectedLimit === 100} 
-                  onChange={() => setSelectedLimit(100)}
+                  value={250} 
+                  checked={selectedLimit === 250} 
+                  onChange={() => setSelectedLimit(250)}
                   className="w-4 h-4 text-zinc-900 focus:ring-zinc-900"
                 />
                 <span className="font-medium text-zinc-900">{t.opt100}</span>

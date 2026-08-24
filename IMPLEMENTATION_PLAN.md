@@ -26,7 +26,7 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] Implementasikan `MetricCards.tsx` (Jumlah followers/unfollowers).
 - [x] Implementasikan `GrowthChart.tsx` dan fitur visualisasi lainnya (Cohort, Seasonality Radar, dll).
 - [x] **Filter Rentang Waktu Kustom:** Fitur mode "Custom Range" terintegrasi di dalam *Growth Chart* untuk menganalisis perkembangan akun di rentang bulan yang spesifik.
-- [x] Implementasikan `UserTable.tsx` (Menampilkan maksimal 100 akun yang dipilih secara **acak** untuk versi gratis).
+- [x] Implementasikan `UserTable.tsx` (Menampilkan maksimal 250 akun yang dipilih secara **acak** untuk versi gratis).
 - [x] Peningkatan *UserTable* (Mini CRM): Tambahkan tab **Mutuals** (Saling Follow), fitur Label/Tagging akun berwarna, Bulk Actions, fungsi Pencarian (Search), dan Penyortiran (Sort).
 - [x] **Manajemen Multi-Akun:** Integrasikan `IndexedDB` dan buat komponen `AccountSwitcher.tsx` agar pengguna dapat menyimpan dan beralih riwayat analisis beberapa akun Instagram sekaligus tanpa perlu *upload* ulang ZIP.
 - [x] Refaktor *Paywall*: Pindahkan logika pemotongan array (slice data) ke komponen induk (`page.tsx`) agar keamanan terjamin dan mempermudah render.
@@ -37,11 +37,12 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] **Animasi Interaktif (Framer Motion):** Mengintegrasikan `framer-motion` di `page.tsx` untuk menghadirkan efek transisi *fade-in* dan *scroll-triggered animations* pada hero banner dan komponen widget, menghidupkan antarmuka agar tidak statis.
 
 ## Tahap 4: Sistem Bisnis (Rate Limit & Paywall)
-- [x] **Rate Limiting:** Integrasikan `FingerprintJS` untuk mendeteksi ID perangkat (*visitorId*) secara *client-side* dan berikan pembatasan maksimal 5 kali unggah ZIP per bulan per perangkat pada komponen `ZipUploader.tsx`.
+- [x] **Rate Limiting:** Integrasikan `FingerprintJS` untuk mendeteksi ID perangkat (*visitorId*) secara *client-side* dan berikan pembatasan maksimal 20 kali unggah ZIP per bulan per perangkat pada komponen `ZipUploader.tsx`.
 - [x] Buat komponen `PaywallModal.tsx` dengan UI *mock-up* pembayaran QRIS.
-- [x] **Keamanan Paywall (Anti-F12):** Terapkan pencegahan *Inspect Element* dengan hanya me-render 100 data acak terdekripsi ke DOM, dan sisanya digantikan dengan *Skeleton Dummy Data* hingga pembayaran berhasil. (Dilengkapi dengan enkripsi XOR Cipher + Base64 pada `crypto.ts`).
+- [x] **Keamanan Paywall (Anti-F12):** Terapkan pencegahan *Inspect Element* dengan hanya me-render 250 data acak terdekripsi ke DOM, dan sisanya digantikan dengan *Skeleton Dummy Data* hingga pembayaran berhasil. (Dilengkapi dengan enkripsi XOR Cipher + Base64 pada `crypto.ts`).
 - [x] **Monetisasi Mikro:** Kunci fitur Sortir Abjad dan batasi klik tautan profil eksternal (maksimal 10 profil unik per hari) di dalam `UserTable` untuk pengguna gratis.
 - [x] **Infrastruktur Monetisasi Pasif:** Implementasi komponen `DummyAd.tsx` (*Mockup* UI) untuk menyimulasikan tata letak (*layouting*) Iklan Google AdSense/Affiliate pada posisi strategis: *Sticky Banner* di bawah layar, *In-Feed* (setiap 5 baris di tabel CRM), *Interstitial* di layar *Loading/Extracting*, dan *Sidebar* di Desktop.
+- [x] **AdBlock Detector:** Implementasi komponen cerdas `AdBlockDetector.tsx` menggunakan teknik injeksi umpan DOM (*bait*) untuk mendeteksi keberadaan AdBlocker dan memunculkan *pop-up* persuasif donasi kopi/trakteer secara dinamis.
 
 ## Tahap 5: Standar Produksi (Keamanan, SEO & Support)
 - [x] **Error Handling:** Tambahkan logika pengecekan ekstensi file (harus `.zip`) dan batas maksimal ukuran (100MB) pada `ZipUploader.tsx`.
