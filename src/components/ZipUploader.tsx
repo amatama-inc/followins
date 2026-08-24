@@ -214,7 +214,7 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
           {/* Turnstile Widget - Harus pointer-events-auto agar bisa diklik jika ada interaksi */}
           <div className={`mt-2 flex justify-center pointer-events-auto ${turnstileToken ? 'hidden' : ''}`} onClick={(e) => e.stopPropagation()}>
             <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+              siteKey="0x4AAAAAAEaSQ1s_octgwSi7"
               onSuccess={(token) => setTurnstileToken(token)}
               options={{ theme: 'dark' }}
             />
