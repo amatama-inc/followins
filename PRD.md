@@ -17,6 +17,7 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Dashboard Visual:** Grafik interaktif untuk visualisasi pertumbuhan (*Growth Chart*), demografi (*Cohort*), retensi pengikut, dan **Filter Rentang Waktu Kustom** (*Custom Date Range*).
 - **Infrastruktur Iklan Pasif:** *Mockup layouting* Iklan Google AdSense/Affiliate pada posisi strategis (*Sticky Banner*, *In-Feed*, *Interstitial*, *Sidebar*).
 - **Sistem Anti-AdBlocker:** Detektor *ad-block* cerdas untuk memohon *whitelist* atau meminta donasi kompensasi secara persuasif.
+- **Server-Side Rate Limiting:** Keamanan tingkat *Edge* (menggunakan *Cloudflare KV*) untuk mencegah serangan *spam/bot* pada rute aplikasi dengan batas 60 request/menit.
 
 ---
 
@@ -65,7 +66,6 @@ Jika di masa depan skema Cloudflare KV terbentur oleh batasan teknis (misal: keb
 - **Pengujian Keamanan & Kualitas (QA E2E):** Pengembangan infrastruktur skrip uji otomatis *End-to-End* (*Playwright*/*Cypress*) untuk mensimulasikan seluruh alur kerja aplikasi demi menjamin keandalan pembaruan fitur, serta audit penetrasi mandiri untuk menutup celah dari pengguna yang ingin mem-*bypass paywall*.
 - **Otomatisasi CI/CD & GitHub Actions:** Menerapkan jalur integrasi berkelanjutan yang secara otomatis memindai kebocoran kunci rahasia (*secrets*) dan mencegah kerusakan *build* sebelum kode disebarkan secara publik ke tahap produksi.
 - **Strategi Deployment Ganda (Vercel & Cloudflare Pages):** Menjalankan arsitektur peluncuran paralel untuk membandingkan performa *build*, ekosistem *Edge Network*, dan batasan fungsi. Vercel akan diuji coba sebagai target *deploy* pertama (*staging*/evaluasi), dan Cloudflare Pages sebagai target *deploy* kedua (untuk menangani *traffic production* tanpa limitasi komersial AdSense/Paywall).
-- **Server-Side Rate Limiting via Cloudflare KV:** Meng-upgrade keamanan anti-spam yang tadinya mengandalkan *Browser LocalStorage/FingerprintJS* menjadi sistem basis data Cloudflare KV (menggantikan rencana awal Vercel KV). Ini menambal kelemahan versi gratis di mana *user* nakal mencoba mereset limit dengan membersihkan *cache* browser, tanpa membebani biaya tambahan (Gratis hingga 100.000 *read requests* per hari).
 - **Domain Bootstrapping & Cloudflare:** Peluncuran tahap awal menggunakan domain hemat biaya (`.my.id`) sebelum ditingkatkan ke domain premium (`.app`), dikombinasikan dengan manajemen DNS dan proteksi DDoS dari Cloudflare.
 - **Cloudflare Turnstile (Anti-Bot):** Implementasi tantangan transparan pengganti CAPTCHA di area unggah file untuk mencegah skrip robot menguras limit aplikasi.
 - **Aplikasi Mobile (Android Native):** Membungkus atau memigrasikan web Next.js ke platform *mobile* menggunakan *framework* seperti Capacitor atau React Native agar aplikasi Followins dapat didistribusikan dan diunduh langsung melalui Google Play Store.

@@ -53,6 +53,7 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [x] **Eksport Laporan PDF:** Mengintegrasikan `@react-pdf/renderer` untuk meng-generate dokumen analitik siap cetak secara *Client-Side*.
 - [x] **Multi-Account Reset:** Tambahkan fungsi bersihkan *cache* untuk memungkinkan pengguna mengecek akun lain tanpa *reload* (diimplementasikan via `resetApp`).
 - [x] **Analytics & Tracking:** Mengintegrasikan `@vercel/analytics` dan `@vercel/speed-insights` di `layout.tsx` untuk memantau metrik lalu lintas (*traffic*) dan performa *Core Web Vitals* pengunjung secara *real-time* di lingkungan produksi.
+- [x] **Server-Side Rate Limiting:** Implementasi file `middleware.ts` menggunakan *Cloudflare KV* untuk memblokir IP yang melakukan *spamming* (batas 60 *request* per menit), melindungi arsitektur aplikasi dari serangan DDoS ringan pada skala *Edge*.
 
 ## Tahap 6: Peta Jalan Masa Depan (Future Roadmap - Backlog)
 *(Sinkronisasi dari PRD Bagian 4: Fitur ditunda untuk iterasi pasca-MVP)*
@@ -72,7 +73,6 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [ ] Strategi Deployment Ganda (Vercel untuk evaluasi/staging, Cloudflare Pages untuk *Production*).
 - [ ] Domain Bootstrapping: Peluncuran awal menggunakan domain murah (`.my.id`), disusul migrasi SEO-friendly ke `followins.app` saat aplikasi mulai menghasilkan pendapatan.
 - [ ] Pengaturan Email Khusus: Konfigurasi Cloudflare Email Routing untuk penerimaan pesan (Gratis) atau integrasi Zoho Mail untuk pengiriman email bisnis penuh (mis: `hello@followins.app`).
-- [ ] Server-Side Rate Limiting via Cloudflare KV.
 - [ ] Cloudflare Turnstile (Anti-Bot) di area upload ZIP.
 - [ ] Otomatisasi CI/CD & GitHub Actions (Pemindaian Secrets & Build).
 - [ ] Pengujian Keamanan & Kualitas (QA E2E via Playwright/Cypress).
