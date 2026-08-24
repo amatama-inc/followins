@@ -18,6 +18,7 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Infrastruktur Iklan Pasif:** *Mockup layouting* Iklan Google AdSense/Affiliate pada posisi strategis (*Sticky Banner*, *In-Feed*, *Interstitial*, *Sidebar*).
 - **Sistem Anti-AdBlocker:** Detektor *ad-block* cerdas untuk memohon *whitelist* atau meminta donasi kompensasi secara persuasif.
 - **Server-Side Rate Limiting:** Keamanan tingkat *Edge* (menggunakan *Cloudflare KV*) untuk mencegah serangan *spam/bot* pada rute aplikasi dengan batas 60 request/menit.
+- **Cloudflare Turnstile (Anti-Bot):** Validasi pengunjung *real human* secara otomatis di area gerbang *Upload* (*Client-Side* & *Server Actions*) untuk menghadang robot peretas tanpa merusak *User Experience* (pengganti reCAPTCHA).
 
 ---
 
@@ -67,7 +68,6 @@ Jika di masa depan skema Cloudflare KV terbentur oleh batasan teknis (misal: keb
 - **Otomatisasi CI/CD & GitHub Actions:** Menerapkan jalur integrasi berkelanjutan yang secara otomatis memindai kebocoran kunci rahasia (*secrets*) dan mencegah kerusakan *build* sebelum kode disebarkan secara publik ke tahap produksi.
 - **Strategi Deployment Ganda (Vercel & Cloudflare Pages):** Menjalankan arsitektur peluncuran paralel untuk membandingkan performa *build*, ekosistem *Edge Network*, dan batasan fungsi. Vercel akan diuji coba sebagai target *deploy* pertama (*staging*/evaluasi), dan Cloudflare Pages sebagai target *deploy* kedua (untuk menangani *traffic production* tanpa limitasi komersial AdSense/Paywall).
 - **Domain Bootstrapping & Cloudflare:** Peluncuran tahap awal menggunakan domain hemat biaya (`.my.id`) sebelum ditingkatkan ke domain premium (`.app`), dikombinasikan dengan manajemen DNS dan proteksi DDoS dari Cloudflare.
-- **Cloudflare Turnstile (Anti-Bot):** Implementasi tantangan transparan pengganti CAPTCHA di area unggah file untuk mencegah skrip robot menguras limit aplikasi.
 - **Aplikasi Mobile (Android Native):** Membungkus atau memigrasikan web Next.js ke platform *mobile* menggunakan *framework* seperti Capacitor atau React Native agar aplikasi Followins dapat didistribusikan dan diunduh langsung melalui Google Play Store.
 - **PWA (Progressive Web App) & Push Notifications:** Konfigurasi *manifest* yang mengizinkan web diinstal ke *Home Screen* (iOS & Android). Memanfaatkan *Service Workers* untuk mengirimkan **Local Push Notification** sebagai pengingat otomatis (contoh: *"Sudah 1 bulan! Yuk periksa ulang siapa yang unfollow kamu"*), tanpa memerlukan *server backend* (Firebase/OneSignal).
 - **Optimasi SEO & Open Graph (OG Tags):** Injeksi meta tags dinamis (*thumbnail* khusus) agar tautan Followins terlihat premium dan meyakinkan saat dibagikan di platform media sosial seperti WhatsApp atau X (Twitter).

@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect } from 'react';
 import { UploadCloud, Loader2 } from 'lucide-react';
 import fpPromise from '@fingerprintjs/fingerprintjs';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { verifyTurnstileToken } from '@/app/actions/verifyTurnstile';
 
 interface ZipUploaderProps {
   onFileSelect: (file: File) => void;
@@ -13,6 +15,8 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
   const { t, language } = useLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [isVerifyingTurnstile, setIsVerifyingTurnstile] = useState(false);
 
   const checkLimit = async (): Promise<boolean> => {
     try {
@@ -83,6 +87,11 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
     e.stopPropagation();
     setIsDragging(false);
 
+    if (!turnstileToken) {
+      alert(language === 'en' ? "Please complete the CAPTCHA first." : "Harap selesaikan CAPTCHA terlebih dahulu.");
+      return;
+    }
+
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
       if (file.size > 100 * 1024 * 1024) { // 100MB limit
@@ -90,6 +99,15 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
         return;
       }
       if (file.name.endsWith('.zip')) {
+        setIsVerifyingTurnstile(true);
+        const turnstileResult = await verifyTurnstileToken(turnstileToken);
+        setIsVerifyingTurnstile(false);
+        
+        if (!turnstileResult.success) {
+          alert(language === 'en' ? "CAPTCHA verification failed. Please refresh the page." : "Verifikasi CAPTCHA gagal. Silakan muat ulang halaman.");
+          return;
+        }
+
         const allowed = await checkLimit();
         if (allowed) {
           onFileSelect(file);
@@ -98,10 +116,17 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
         alert(t('uploadError'));
       }
     }
-  }, [onFileSelect]);
+  }, [onFileSelect, turnstileToken, language, t]);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+
+    if (!turnstileToken) {
+      alert(language === 'en' ? "Please complete the CAPTCHA first." : "Harap selesaikan CAPTCHA terlebih dahulu.");
+      e.target.value = '';
+      return;
+    }
+
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       if (file.size > 100 * 1024 * 1024) { // 100MB limit
@@ -110,6 +135,16 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
         return;
       }
       if (file.name.endsWith('.zip')) {
+        setIsVerifyingTurnstile(true);
+        const turnstileResult = await verifyTurnstileToken(turnstileToken);
+        setIsVerifyingTurnstile(false);
+
+        if (!turnstileResult.success) {
+          alert(language === 'en' ? "CAPTCHA verification failed. Please refresh the page." : "Verifikasi CAPTCHA gagal. Silakan muat ulang halaman.");
+          e.target.value = '';
+          return;
+        }
+
         const allowed = await checkLimit();
         if (allowed) {
           onFileSelect(file);
@@ -154,7 +189,7 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         />
         
-        <div className="flex flex-col items-center gap-6 relative z-10 pointer-events-none">
+        <div className="flex flex-col items-center gap-6 relative z-20 pointer-events-none">
           <div className={`p-4 rounded-xl transition-all duration-300 border ${isDragging ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50 scale-110' : 'bg-emerald-500/5 border-emerald-500/20 text-emerald-500/80'}`}>
             {isChecking ? (
               <Loader2 size={32} strokeWidth={1.5} className="animate-spin text-emerald-500" />
@@ -164,7 +199,7 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
           </div>
           <div>
             <p className="text-fluid-widget-title font-bold text-zinc-200 tracking-tight mb-3 leading-snug">
-              {isChecking ? (language === 'en' ? 'Checking limits...' : 'Mengecek batas...') : (
+              {isChecking || isVerifyingTurnstile ? (language === 'en' ? 'Checking security limits...' : 'Mengecek keamanan...') : (
                 <>
                   <span className="md:hidden">{language === 'en' ? 'Tap to select your Instagram .zip file' : 'Ketuk untuk pilih file .zip Instagram'}</span>
                   <span className="hidden md:inline">{t('uploadPrompt')}</span>
@@ -172,8 +207,17 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
               )}
             </p>
             <p className="text-zinc-500 font-light max-w-md mx-auto leading-relaxed text-fluid-sm">
-              {isChecking ? '' : t('uploadDesc')}
+              {isChecking || isVerifyingTurnstile ? '' : t('uploadDesc')}
             </p>
+          </div>
+          
+          {/* Turnstile Widget - Harus pointer-events-auto agar bisa diklik jika ada interaksi */}
+          <div className={`mt-2 flex justify-center pointer-events-auto ${turnstileToken ? 'hidden' : ''}`} onClick={(e) => e.stopPropagation()}>
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+              onSuccess={(token) => setTurnstileToken(token)}
+              options={{ theme: 'dark' }}
+            />
           </div>
         </div>
       </div>
