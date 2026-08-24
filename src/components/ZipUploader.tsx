@@ -44,7 +44,7 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
       
       if (data.count >= 20) {
         setIsChecking(false);
-        toast.error(
+        alert(
           language === 'en'
             ? "You have reached the limit of 20 uploads per month for this device."
             : "Anda telah mencapai batas maksimal 20 kali upload per bulan untuk perangkat ini."

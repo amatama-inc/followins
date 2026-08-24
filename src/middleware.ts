@@ -20,7 +20,6 @@ export async function middleware(request: NextRequest) {
 
   // Mendapatkan IP address pengunjung dari header Cloudflare
   const ip = 
-    request.ip || 
     request.headers.get('cf-connecting-ip') || 
     request.headers.get('x-forwarded-for') || 
     'unknown';
