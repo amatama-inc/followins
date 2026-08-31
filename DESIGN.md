@@ -46,8 +46,10 @@ Followins adalah alat pelacak pengikut Instagram yang 100% berbasis privasi (Cli
     - Sisa data disembunyikan menggunakan *Skeleton Dummy Data* (Anti-F12).
 - **`PDFDownloadModal.tsx` & `FollowinsReportPDF.tsx`:**
   - Fitur untuk mengekspor hasil analisis menjadi dokumen cetak PDF yang bersih menggunakan `@react-pdf/renderer`. Pengguna premium dapat mengunduh seluruh data (ribuah akun), sedangkan versi gratis dibatasi 250 baris pertama. Proses pembuatan (*generate*) PDF sepenuhnya diamankan pada level *Client-Side*.
-- **`PaywallModal.tsx`:**
-  - Dirender menggunakan `createPortal` pada level tertinggi DOM. Muncul ketika pengguna ingin membuka batasan freemium untuk melihat seluruh akun. Menampilkan simulasi UI pembayaran QRIS yang interaktif.
+- **`AccountSwitcher.tsx`:** Antarmuka elegan di bilah navigasi (terintegrasi dengan IndexedDB) yang memungkinkan pengguna menyimpan dan beralih antar riwayat analisis banyak akun Instagram klien secara instan tanpa memuat ulang halaman (*seamless experience*).
+- **`PaywallModal.tsx` & Rencana UI Pricing:**
+  - Dirender menggunakan `createPortal` pada level tertinggi DOM. Muncul ketika pengguna ingin membuka batasan freemium untuk melihat seluruh akun.
+  - Saat ini menampilkan simulasi UI pembayaran QRIS yang interaktif. Akan dikembangkan menjadi *Multi-Tier Pricing Section* untuk membandingkan Paket **Premium** (Rp 25.000, 1 Akun, Iklan Aktif) dan Paket **Premium+** (Rp 50.000, Lintas-Akun, Bebas Iklan/Ad-Free).
 - **Halaman Legal Statis:** Menggunakan pembungkus `LegalPageLayout.tsx` untuk konsistensi desain UI.
   - **`/privacy`:** Halaman Kebijakan Privasi yang menegaskan komitmen pengolahan data secara lokal.
   - **`/terms`:** Halaman Syarat dan Ketentuan penggunaan layanan.

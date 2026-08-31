@@ -19,6 +19,10 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Sistem Anti-AdBlocker:** Detektor *ad-block* cerdas untuk memohon *whitelist* atau meminta donasi kompensasi secara persuasif.
 - **Server-Side Rate Limiting:** Keamanan tingkat *Edge* (menggunakan *Cloudflare KV*) untuk mencegah serangan *spam/bot* pada rute aplikasi dengan batas 60 request/menit.
 - **Cloudflare Turnstile (Anti-Bot):** Validasi pengunjung *real human* secara otomatis di area gerbang *Upload* (*Client-Side* & *Server Actions*) untuk menghadang robot peretas tanpa merusak *User Experience* (pengganti reCAPTCHA).
+- **QA Automation & CI/CD Pipeline:** Uji keamanan dan kualitas *End-to-End* menggunakan **Playwright**, serta pemindaian kebocoran kunci rahasia (*Secret Scanning* via *Gitleaks*) yang otomatis berjalan pada **GitHub Actions** setiap kali kode dikirim ke repositori.
+- **Distribusi Multi-Platform (PWA & Android Native):** Aplikasi tidak hanya berjalan di web, tetapi dapat diinstal ke *Homescreen* (PWA) lengkap dengan dukungan *Service Worker* dan notifikasi lokal, serta dibungkus menjadi aplikasi **Android Native** mandiri melalui *Capacitor* untuk distribusi di Google Play Store.
+- **Optimasi Konversi & SEO:** Implementasi *Sitemap.xml* dan *Robots.txt* dinamis untuk mendongkrak visibilitas organik dan dominasi mesin pencari Google.
+- **In-App Support & Email Routing (Resend):** Mengganti tautan `mailto:` tradisional dengan komponen `ContactSupportModal` *(Built-in)*, yang terhubung ke Next.js Server Actions dan API Resend untuk mengirimkan *support ticket* langsung ke *inbox* admin tanpa meninggalkan aplikasi.
 
 ---
 
@@ -35,22 +39,21 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 ### 4.2. Monetisasi & Sistem Bisnis
 - **Integrasi Payment Gateway Otomatis (QRIS):** Mengganti UI simulasi QRIS saat ini dengan API riil (seperti Midtrans atau Xendit) agar transaksi mikro untuk membuka batas *paywall* 250 nama tervalidasi secara instan tanpa tenaga admin.
 - **Sistem Monetisasi 2 Pilihan:**
-  - **Paket "Premium" (Rp 15.000):**
-    - Menembus *paywall* dan membuka 100% data untuk akun Instagram yang sedang dianalisis saat itu.
+  - **Paket "Premium" (Rp 25.000):**
+    - Menembus *paywall* dan membuka 100% data untuk akun Instagram yang sedang dianalisis saat itu. **(Catatan: Iklan akan tetap tampil di paket ini).**
+    - **Akses Berulang Terbatas:** Pengguna tetap dapat menutup browser atau mengunggah file ZIP baru di kemudian hari *tanpa* harus membayar ulang, **dengan syarat mutlak:** file ZIP tersebut harus dari **username Instagram yang sama** dan diunggah dari **perangkat (device) yang sama** saat pembelian dilakukan.
+    - Jika pengguna mencoba mengakses dari perangkat lain (meskipun username-nya sama), atau mengunggah ZIP dari username berbeda di perangkat awal, sistem akan memblokir dan mereka harus membayar Rp 25.000 lagi. Opsi ini **tidak** memberikan kode lisensi.
+  - **Paket "Premium+" (Rp 50.000):**
+    - Pengguna mendapatkan **Kode Lisensi Unik** (tanpa sistem *Login/Password*).
+    - **Bebas Iklan (Ad-Free):** Seluruh slot iklan (Banner, In-Feed, Interstitial) dihilangkan 100% demi kenyamanan dan kesan profesional.
+    - **Masa Aktif:** Lisensi berlaku selama **1 tahun** penuh sejak pembelian.
+    - **Kebebasan Penuh (*Cross-Account* & *Cross-Device*):** Berbeda dengan paket biasa, pengguna Premium+ dapat login/memasukkan kode di perangkat lain dan bebas mengunggah file ZIP dari **username Instagram mana saja** (tidak dikunci ke satu username tertentu). Sangat cocok untuk pengguna multi-akun atau Agensi B2B.
+    - **Batas Perangkat (Device Limit):** Divalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada **1 ID perangkat unik** secara bersamaan. Jika lisensi dipakai di perangkat baru, sesi di perangkat lama otomatis akan ditendang/dicabut.
 - **Sistem Premium Bertingkat (Multi-Tier Paywall) & UI Pricing Section:** Memperluas skema monetisasi dari sistem satu harga menjadi paket berjenjang (*Tiering*). Membangun komponen **Section Harga (Pricing/Packages)** yang menampilkan perbandingan fitur antara "Paket Dasar" (menampilkan sebagian nama) dan "Paket Penuh" (seluruh daftar 100%), serta opsi audit "Jual Putus".
 - **Lisensi Premium Lintas Akun & Sistem Kode Akses (License Key):** Menerapkan skema validasi premium menggunakan **Kode Lisensi Unik** (tanpa sistem *Login/Password* demi menjaga arsitektur *Privacy-First*). 
   - Pengguna yang membeli lisensi dapat menggunakan kode tersebut untuk menembus *paywall* pada banyak file akun Instagram (*Cross-Account*) tanpa membayar langganan terpisah.
   - **Dukungan Multi-Device:** Kode lisensi dapat dimasukkan di perangkat lain (misal dari PC ke *Smartphone*), mengizinkan pengguna menikmati fitur premium di gawai yang berbeda.
   - **Anti-Pembajakan (Device Limit):** Tervalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada 2-3 ID perangkat unik secara bersamaan untuk mencegah penyalahgunaan berbagi lisensi (*account sharing*) di internet.
-- **Paket "Premium" (Rp 15.000):**
-  - Menembus *paywall* dan membuka 100% data untuk akun Instagram yang sedang dianalisis saat itu.
-  - **Akses Berulang Terbatas:** Pengguna tetap dapat menutup browser atau mengunggah file ZIP baru di kemudian hari *tanpa* harus membayar ulang, **dengan syarat mutlak:** file ZIP tersebut harus dari **username Instagram yang sama** dan diunggah dari **perangkat (device) yang sama** saat pembelian dilakukan.
-  - Jika pengguna mencoba mengakses dari perangkat lain (meskipun username-nya sama), atau mengunggah ZIP dari username berbeda di perangkat awal, sistem akan memblokir dan mereka harus membayar Rp 15.000 lagi. Opsi ini **tidak** memberikan kode lisensi.
-- **Paket "Premium+" (Rp 50.000):**
-  - Pengguna mendapatkan **Kode Lisensi Unik** (tanpa sistem *Login/Password*).
-  - **Masa Aktif:** Lisensi berlaku selama **1 tahun** penuh sejak pembelian.
-  - **Kebebasan Penuh (*Cross-Account* & *Cross-Device*):** Berbeda dengan paket biasa, pengguna Premium+ dapat login/memasukkan kode di perangkat lain dan bebas mengunggah file ZIP dari **username Instagram mana saja** (tidak dikunci ke satu username tertentu). Sangat cocok untuk pengguna multi-akun atau Agensi B2B.
-  - **Batas Perangkat (Device Limit):** Divalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada **1 ID perangkat unik** secara bersamaan. Jika lisensi dipakai di perangkat baru, sesi di perangkat lama otomatis akan ditendang/dicabut.
 - **Ekspor Laporan PDF Profesional (White-label):** Generator laporan eksklusif berbentuk PDF/CSV yang memungkinkan Manajer Sosial Media (*Agensi B2B*) mengunggah logo perusahaan mereka sendiri di dokumen laporan.
 - **Model Bisnis "Jual Putus" (One-Time Audit):** Skema pembayaran sekali transaksi (bukan langganan) bagi *influencer* yang hanya membutuhkan laporan mendalam secara periodik (misal: audit setiap 3 bulan).
 
@@ -61,16 +64,10 @@ Jika di masa depan skema Cloudflare KV terbentur oleh batasan teknis (misal: keb
   3. **SOP Kompensasi Admin (*Customer Delight*):** Jika sistem di atas gagal (pengguna ganti HP dan lupa ID Transaksi) lalu menghubungi *Support*, admin cukup meminta bukti transfer QRIS. SOP utamanya adalah admin langsung membagikan 1 **Kode Lisensi Premium+ (Rp 50.000) secara gratis** sebagai bentuk kompensasi (karena biaya produksinya Rp 0). Ini dirancang untuk mengubah kekecewaan pelanggan menjadi kepuasan ekstrem yang memicu promosi gratis dari mulut ke mulut (*Word of Mouth*).
 
 ### 4.3. Infrastruktur, Keamanan, & Distribusi
-- **Homepage Teaser/Demo Interaktif:** Memberikan animasi kisi-kisi atau simulasi interaktif (*teaser*) di halaman depan sebelum pengguna mengunggah ZIP, agar pengguna mendapat gambaran pasti tentang nilai fitur (*Unfollower* dan Kutu Loncat) yang akan mereka dapatkan, sehingga meningkatkan tingkat konversi unggahan.
-- **Sistem Tiket & Formulir Kontak (In-App Support):** Mengganti tautan `mailto:` saat ini dengan sistem formulir pesan bawaan (*built-in*) agar pengguna tidak dipaksa membuka aplikasi *email* eksternal (seperti Outlook/Mail) saat ingin meminta bantuan atau melaporkan *bug*.
 - **Pengaturan Email Domain Khusus:** Mengonfigurasi *Cloudflare Email Routing* (gratis) atau Zoho Mail untuk menerima dan membalas surel secara profesional menggunakan alamat domain bisnis (contoh: `support@followins.app`), menggantikan penggunaan email pribadi.
-- **Pengujian Keamanan & Kualitas (QA E2E):** Pengembangan infrastruktur skrip uji otomatis *End-to-End* (*Playwright*/*Cypress*) untuk mensimulasikan seluruh alur kerja aplikasi demi menjamin keandalan pembaruan fitur, serta audit penetrasi mandiri untuk menutup celah dari pengguna yang ingin mem-*bypass paywall*.
-- **Otomatisasi CI/CD & GitHub Actions:** Menerapkan jalur integrasi berkelanjutan yang secara otomatis memindai kebocoran kunci rahasia (*secrets*) dan mencegah kerusakan *build* sebelum kode disebarkan secara publik ke tahap produksi.
+- **Otomatisasi Pemasaran Email:** Setup *mailing list* otomatis untuk mengirim rekap performa mingguan kepada pengguna setia atau *newsletter* tips organik Instagram (memanfaatkan integrasi Resend / Mailchimp).
 - **Strategi Deployment Ganda (Vercel & Cloudflare Pages):** Menjalankan arsitektur peluncuran paralel untuk membandingkan performa *build*, ekosistem *Edge Network*, dan batasan fungsi. Vercel akan diuji coba sebagai target *deploy* pertama (*staging*/evaluasi), dan Cloudflare Pages sebagai target *deploy* kedua (untuk menangani *traffic production* tanpa limitasi komersial AdSense/Paywall).
 - **Domain Bootstrapping & Cloudflare:** Peluncuran tahap awal menggunakan domain hemat biaya (`.my.id`) sebelum ditingkatkan ke domain premium (`.app`), dikombinasikan dengan manajemen DNS dan proteksi DDoS dari Cloudflare.
-- **Aplikasi Mobile (Android Native):** Membungkus atau memigrasikan web Next.js ke platform *mobile* menggunakan *framework* seperti Capacitor atau React Native agar aplikasi Followins dapat didistribusikan dan diunduh langsung melalui Google Play Store.
-- **PWA (Progressive Web App) & Push Notifications:** Konfigurasi *manifest* yang mengizinkan web diinstal ke *Home Screen* (iOS & Android). Memanfaatkan *Service Workers* untuk mengirimkan **Local Push Notification** sebagai pengingat otomatis (contoh: *"Sudah 1 bulan! Yuk periksa ulang siapa yang unfollow kamu"*), tanpa memerlukan *server backend* (Firebase/OneSignal).
-- **Optimasi SEO & Open Graph (OG Tags):** Injeksi meta tags dinamis (*thumbnail* khusus) agar tautan Followins terlihat premium dan meyakinkan saat dibagikan di platform media sosial seperti WhatsApp atau X (Twitter).
 
 ### 4.4. Proyeksi & Strategi Pendapatan Iklan
 

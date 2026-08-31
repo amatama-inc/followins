@@ -82,7 +82,7 @@ export default function AdBlockDetector() {
             </button>
             
             <a 
-              href="https://trakteer.id/" 
+              href="https://trakteer.id/393foru" 
               target="_blank" 
               rel="noopener noreferrer"
               onClick={() => setIsDismissed(true)}

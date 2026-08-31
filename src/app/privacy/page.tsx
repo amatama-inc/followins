@@ -3,7 +3,6 @@
 import LegalPageLayout from '@/components/LegalPageLayout';
 import { useLanguage } from '@/i18n/LanguageContext';
 import EmailSupportLink from '@/components/EmailSupportLink';
-
 export default function PrivacyPolicy() {
   const { language } = useLanguage();
 

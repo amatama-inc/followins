@@ -65,8 +65,8 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 
 **Monetisasi & Bisnis:**
 - [ ] Integrasi Payment Gateway Otomatis (Midtrans/Xendit).
-- [ ] Sistem Premium Bertingkat (Multi-Tier Paywall) & Komponen UI *Pricing Section* (Menampilkan perbandingan fitur Paket Gratis vs Paket Berbayar/Jual Putus).
-- [ ] Sistem Kode Lisensi Premium (Multi-Device & Cross-Account) dengan limitasi via Cloudflare KV.
+- [ ] **Sistem Premium Bertingkat (Multi-Tier Paywall) & Komponen UI *Pricing Section*:** Menampilkan perbandingan fitur antara Paket "Premium" (Buka Paywall 1 Akun, Iklan Aktif) vs Paket "Premium+" (Kode Lisensi, Lintas-Akun, 100% Ad-Free).
+- [ ] Sistem Kode Lisensi Premium Lintas-Akun (License Key) dengan limitasi per-perangkat (Device Limit) via Cloudflare KV.
 - [ ] Ekspor Laporan PDF Profesional B2B (White-label Logo).
 - [ ] Model Bisnis "Jual Putus" (One-Time Audit).
 
@@ -74,12 +74,11 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 - [ ] Strategi Deployment Ganda (Vercel untuk evaluasi/staging, Cloudflare Pages untuk *Production*).
 - [ ] Domain Bootstrapping: Peluncuran awal menggunakan domain murah (`.my.id`), disusul migrasi SEO-friendly ke `followins.app` saat aplikasi mulai menghasilkan pendapatan.
 - [ ] Pengaturan Email Khusus: Konfigurasi Cloudflare Email Routing untuk penerimaan pesan (Gratis) atau integrasi Zoho Mail untuk pengiriman email bisnis penuh (mis: `hello@followins.app`).
-- [ ] Otomatisasi CI/CD & GitHub Actions (Pemindaian Secrets & Build).
-- [ ] Pengujian Keamanan & Kualitas (QA E2E via Playwright/Cypress).
+- [x] Otomatisasi CI/CD & GitHub Actions (Pemindaian Secrets & Build).
+- [x] Pengujian Keamanan & Kualitas (QA E2E via Playwright/Cypress).
 
 **Distribusi & Aksesibilitas:**
-- [ ] Aplikasi Mobile (Android Native via Capacitor/React Native) dengan integrasi API langsung ke domain utama.
-- [ ] PWA Support & Local Push Notifications (Pengingat Otomatis).
-- [ ] Optimasi SEO & Open Graph (OG Tags).
-- [ ] Homepage Teaser/Demo Interaktif.
-- [ ] Sistem Tiket & Formulir Kontak dalam Aplikasi (In-App Support).
+- [x] Aplikasi Mobile (Android Native via Capacitor/React Native) dengan integrasi API langsung ke domain utama.
+- [x] PWA Support & Local Push Notifications (Pengingat Otomatis).
+- [x] Optimasi SEO & Open Graph (OG Tags).
+- [x] Sistem Tiket & Formulir Kontak dalam Aplikasi (In-App Support).

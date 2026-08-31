@@ -738,13 +738,17 @@ export default function Home() {
             
             {/* Tombol Donasi (Kopi) */}
             <a 
-              href="https://trakteer.id/" 
+              href="https://trakteer.id/393foru" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-14 h-14 bg-amber-500 text-white rounded-full shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:bg-amber-600 hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] active:scale-95 transition-all duration-200"
+              className="relative flex items-center justify-center w-14 h-14 bg-white rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 overflow-hidden"
               title="Support Us"
             >
-              <span className="text-2xl mt-0.5">☕</span>
+              <img 
+                src="/coffee.png" 
+                alt="Trakteer Coffee"
+                className="w-full h-full object-cover"
+              />
             </a>
 
             {/* Tombol Tutorial (Bantuan) */}
