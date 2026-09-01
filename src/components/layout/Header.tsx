@@ -2,10 +2,10 @@
 
 import { Globe, ArrowUpCircle, Moon, Sun } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { useTheme } from '@/components/ThemeContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import AccountSwitcher from './AccountSwitcher';
+import AccountSwitcher from '../shared/AccountSwitcher';
 
 interface HeaderProps {
   showNav?: boolean;

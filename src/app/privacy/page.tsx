@@ -1,8 +1,8 @@
 "use client";
 
-import LegalPageLayout from '@/components/LegalPageLayout';
+import LegalPageLayout from '@/components/layout/LegalPageLayout';
 import { useLanguage } from '@/i18n/LanguageContext';
-import EmailSupportLink from '@/components/EmailSupportLink';
+import EmailSupportLink from '@/components/shared/EmailSupportLink';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <>

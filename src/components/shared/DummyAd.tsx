@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 type AdVariant = 'sticky' | 'in-feed' | 'interstitial' | 'sidebar';
 

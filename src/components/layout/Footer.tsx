@@ -1,7 +1,7 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import Link from 'next/link';
 import { Shield, FileText, Mail } from 'lucide-react';
-import EmailSupportLink from './EmailSupportLink';
+import EmailSupportLink from '../shared/EmailSupportLink';
 
 export default function Footer() {
   const { t, language } = useLanguage();

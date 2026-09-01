@@ -1,6 +1,6 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import DummyAd from '@/components/DummyAd';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import DummyAd from '@/components/shared/DummyAd';
 import { useLanguage } from '@/i18n/LanguageContext';
 import Link from 'next/link';
 import { ReactNode } from 'react';

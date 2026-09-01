@@ -64,14 +64,14 @@ export const metadata: Metadata = {
 };
 
 import { LanguageProvider } from "@/i18n/LanguageContext";
-import { ThemeProvider } from "@/components/ThemeContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { SupportProvider } from "@/contexts/SupportContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import DummyAd from "@/components/DummyAd";
-import AdBlockDetector from "@/components/AdBlockDetector";
-import PwaSetup from "@/components/PwaSetup";
-import ContactSupportModal from "@/components/ContactSupportModal";
+import DummyAd from "@/components/shared/DummyAd";
+import AdBlockDetector from "@/components/shared/AdBlockDetector";
+import PwaSetup from "@/components/shared/PwaSetup";
+import ContactSupportModal from "@/components/modals/ContactSupportModal";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

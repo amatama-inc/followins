@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useLanguage } from '@/i18n/LanguageContext';
-import DummyAd from './DummyAd';
+import DummyAd from '../shared/DummyAd';
 
 interface LoadingScreenProps {
   isReady?: boolean;

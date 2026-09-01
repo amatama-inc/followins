@@ -2,12 +2,12 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { Lock, X, Filter, CheckSquare, Square, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import PaywallModal from './PaywallModal';
+import PaywallModal from '../modals/PaywallModal';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { getUserLabels, saveUserLabel } from '@/utils/storage';
 import UserListItem from './UserListItem';
 import { useUserFilter } from '@/hooks/useUserFilter';
-import DummyAd from './DummyAd';
+import DummyAd from '../shared/DummyAd';
 import React from 'react';
 
 interface UserTableProps {
