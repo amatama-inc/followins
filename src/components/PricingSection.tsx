@@ -39,14 +39,49 @@ export default function PricingSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
         
-        {/* Premium Plan */}
+        {/* Free Plan */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="bg-white rounded-3xl border border-zinc-200 p-8 shadow-sm flex flex-col relative transition-all hover:shadow-md"
+        >
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-zinc-900 mb-2">Basic (Free)</h3>
+            <div className="flex items-baseline gap-1">
+              <span className="text-4xl font-black text-zinc-900">Rp 0</span>
+              <span className="text-sm font-medium text-zinc-500">/ selamanya</span>
+            </div>
+            <p className="text-sm text-zinc-500 mt-2">
+              {language === 'en' ? 'Try the core features at zero cost. Safe and private.' : 'Coba fitur dasar tanpa biaya. Aman dan privat.'}
+            </p>
+          </div>
+
+          <ul className="space-y-4 mb-8 flex-1">
+            <FeatureItem icon={Check} text={language === 'en' ? 'Interactive Analytics Charts' : 'Grafik Analisis Interaktif'} />
+            <FeatureItem text={language === 'en' ? 'Limited to 250 Random Accounts' : 'Terbatas 250 Akun Acak'} isFaded textStyle="text-zinc-500" />
+            <FeatureItem text={language === 'en' ? 'No PDF Export' : 'Tidak Bisa Ekspor PDF'} isFaded textStyle="text-zinc-500" />
+            <FeatureItem text={language === 'en' ? 'Contains Advertisements' : 'Masih Terdapat Iklan'} isFaded textStyle="text-zinc-500" />
+            <FeatureItem text={language === 'en' ? 'Limited to 1 Device' : 'Hanya 1 Perangkat'} isFaded textStyle="text-zinc-500" />
+          </ul>
+
+          <button 
+            className="w-full py-3.5 bg-zinc-100 text-zinc-900 font-semibold rounded-xl hover:bg-zinc-200 transition-colors"
+            onClick={handleUploadClick}
+          >
+            {language === 'en' ? 'Upload ZIP to start' : 'Unggah ZIP untuk mulai'}
+          </button>
+        </motion.div>
+
+        {/* Premium Plan */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-3xl border-2 border-zinc-900 p-8 shadow-xl flex flex-col relative transition-all"
         >
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-zinc-900 mb-2">Premium (Personal)</h3>
@@ -60,14 +95,15 @@ export default function PricingSection() {
           </div>
 
           <ul className="space-y-4 mb-8 flex-1">
-            <FeatureItem icon={Check} text={language === 'en' ? 'Reveal All Hidden Accounts' : 'Buka Semua Akun yang Disembunyikan'} />
-            <FeatureItem icon={Check} text={language === 'en' ? 'Export Data to PDF' : 'Ekspor Laporan ke PDF'} />
+            <FeatureItem icon={Check} text={language === 'en' ? 'Interactive Analytics Charts' : 'Grafik Analisis Interaktif'} />
+            <FeatureItem icon={Check} text={language === 'en' ? 'Reveal 100% Hidden Accounts' : 'Buka 100% Akun (Tanpa Sensor)'} />
+            <FeatureItem icon={Check} text={language === 'en' ? 'Export Data to PDF' : 'Bisa Ekspor PDF'} />
             <FeatureItem text={language === 'en' ? 'Contains Advertisements' : 'Masih Terdapat Iklan'} isFaded textStyle="text-zinc-500" />
-            <FeatureItem text={language === 'en' ? 'Locked to 1 Username & 1 Device' : 'Terkunci di 1 Username & 1 Perangkat'} isFaded textStyle="text-zinc-500" />
+            <FeatureItem text={language === 'en' ? 'Limited to 1 Account & Device' : 'Hanya 1 Akun & Perangkat'} isFaded textStyle="text-zinc-500" />
           </ul>
 
           <button 
-            className="w-full py-3.5 bg-zinc-100 text-zinc-900 font-semibold rounded-xl hover:bg-zinc-200 transition-colors"
+            className="w-full py-3.5 bg-zinc-900 text-white font-semibold rounded-xl hover:bg-zinc-800 transition-colors"
             onClick={handleUploadClick}
           >
             {language === 'en' ? 'Upload ZIP to start' : 'Unggah ZIP untuk mulai'}
@@ -79,7 +115,7 @@ export default function PricingSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.2 }}
           className="bg-white rounded-3xl border-2 border-teal-600 p-8 shadow-xl shadow-teal-500/10 flex flex-col relative overflow-hidden"
         >
           <div className="absolute top-0 inset-x-0 h-1.5 bg-teal-600"></div>
@@ -101,10 +137,11 @@ export default function PricingSection() {
           </div>
 
           <ul className="space-y-4 mb-8 flex-1">
-            <FeatureItem icon={Check} text={language === 'en' ? 'Reveal All Hidden Accounts' : 'Buka Semua Akun yang Disembunyikan'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
-            <FeatureItem icon={ShieldCheck} text={language === 'en' ? 'Use on Unlimited Accounts & Devices' : 'Bebas Pakai di Banyak Akun & Perangkat'} iconColor="text-teal-600" textStyle="text-zinc-900 font-bold" />
+            <FeatureItem icon={Check} text={language === 'en' ? 'Interactive Analytics Charts' : 'Grafik Analisis Interaktif'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
+            <FeatureItem icon={Check} text={language === 'en' ? 'Reveal 100% Hidden Accounts' : 'Buka 100% Akun (Tanpa Sensor)'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
+            <FeatureItem icon={Check} text={language === 'en' ? 'Premium PDF Export' : 'Ekspor PDF Premium'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
             <FeatureItem icon={Zap} text={language === 'en' ? '100% Ad-Free Experience' : '100% Bersih Tanpa Iklan'} iconColor="text-teal-600 fill-teal-600" textStyle="text-zinc-900 font-bold" />
-            <FeatureItem icon={Check} text={language === 'en' ? 'Premium PDF Reports' : 'Ekspor Laporan PDF Premium'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
+            <FeatureItem icon={ShieldCheck} text={language === 'en' ? 'Use on Unlimited Devices & Accounts' : 'Bebas Pakai di Banyak Perangkat'} iconColor="text-teal-600" textStyle="text-zinc-900 font-bold" />
           </ul>
 
           <button 
