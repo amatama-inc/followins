@@ -1,6 +1,6 @@
 "use client";
 
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 interface RelationshipPieChartProps {
@@ -26,7 +26,6 @@ export default function RelationshipPieChart({ unfollowers, fans, mutuals }: Rel
     const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
     const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
 
-    const textColor = percent > 0.1 && data.find(d => d.value === percent)?.color === '#ffffff' ? '#000' : '#fff';
     // For simplicity, we just use a contrasting color strategy:
     const fillCol = (index === 1) ? "#000" : "#fff";
 

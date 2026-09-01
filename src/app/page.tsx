@@ -11,6 +11,7 @@ import LoadingScreen from '@/components/LoadingScreen';
 import HowItWorks from '@/components/HowItWorks';
 import Features from '@/components/Features';
 import PrivacySection from '@/components/PrivacySection';
+import PricingSection from '@/components/PricingSection';
 import FAQ from '@/components/FAQ';
 import DummyAd from '@/components/DummyAd';
 import dynamic from 'next/dynamic';
@@ -461,7 +462,7 @@ export default function Home() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="w-full lg:w-1/2 flex flex-col items-center lg:items-end justify-center relative z-10 mt-8 lg:mt-0"
                 >
-                  <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-6 md:p-8 shadow-sm relative overflow-hidden">
+                  <div id="upload-section" className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-6 md:p-8 shadow-sm relative overflow-hidden scroll-mt-24">
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
                     <div className="relative z-10">
                       <ZipUploader onFileSelect={handleFile} />
@@ -527,11 +528,15 @@ export default function Home() {
               <PrivacySection />
             </motion.div>
 
-            <hr className="w-full border-zinc-300" />
-            
             <div className="w-full flex justify-center py-6">
               <DummyAd variant="in-feed" className="!my-0 max-w-full" />
             </div>
+
+            <hr className="w-full border-zinc-300" />
+
+            <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6 }}>
+              <PricingSection />
+            </motion.div>
 
             <hr className="w-full border-zinc-300" />
 

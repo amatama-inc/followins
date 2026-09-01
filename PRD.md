@@ -23,6 +23,7 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
 - **Distribusi Multi-Platform (PWA & Android Native):** Aplikasi tidak hanya berjalan di web, tetapi dapat diinstal ke *Homescreen* (PWA) lengkap dengan dukungan *Service Worker* dan notifikasi lokal, serta dibungkus menjadi aplikasi **Android Native** mandiri melalui *Capacitor* untuk distribusi di Google Play Store.
 - **Optimasi Konversi & SEO:** Implementasi *Sitemap.xml* dan *Robots.txt* dinamis untuk mendongkrak visibilitas organik dan dominasi mesin pencari Google.
 - **In-App Support & Email Routing (Resend):** Mengganti tautan `mailto:` tradisional dengan komponen `ContactSupportModal` *(Built-in)*, yang terhubung ke Next.js Server Actions dan API Resend untuk mengirimkan *support ticket* langsung ke *inbox* admin tanpa meninggalkan aplikasi.
+- **Multi-Tier Pricing UI:** Membangun *Pricing Section* responsif untuk membandingkan opsi monetisasi (Paket Premium Rp 25.000 vs Premium+ Rp 50.000) dengan simulasi *Paywall Modal* yang intuitif untuk mengunci fungsi sortir dan tampilan nama lengkap.
 
 ---
 
@@ -49,7 +50,6 @@ Followins adalah alat analitik Instagram berbasis web yang mengutamakan privasi 
     - **Masa Aktif:** Lisensi berlaku selama **1 tahun** penuh sejak pembelian.
     - **Kebebasan Penuh (*Cross-Account* & *Cross-Device*):** Berbeda dengan paket biasa, pengguna Premium+ dapat login/memasukkan kode di perangkat lain dan bebas mengunggah file ZIP dari **username Instagram mana saja** (tidak dikunci ke satu username tertentu). Sangat cocok untuk pengguna multi-akun atau Agensi B2B.
     - **Batas Perangkat (Device Limit):** Divalidasi melalui Cloudflare KV, satu kode lisensi hanya diizinkan aktif maksimal pada **1 ID perangkat unik** secara bersamaan. Jika lisensi dipakai di perangkat baru, sesi di perangkat lama otomatis akan ditendang/dicabut.
-- **Sistem Premium Bertingkat (Multi-Tier Paywall) & UI Pricing Section:** Memperluas skema monetisasi dari sistem satu harga menjadi paket berjenjang (*Tiering*). Membangun komponen **Section Harga (Pricing/Packages)** yang menampilkan perbandingan fitur antara "Paket Dasar" (menampilkan sebagian nama) dan "Paket Penuh" (seluruh daftar 100%), serta opsi audit "Jual Putus".
 - **Lisensi Premium Lintas Akun & Sistem Kode Akses (License Key):** Menerapkan skema validasi premium menggunakan **Kode Lisensi Unik** (tanpa sistem *Login/Password* demi menjaga arsitektur *Privacy-First*). 
   - Pengguna yang membeli lisensi dapat menggunakan kode tersebut untuk menembus *paywall* pada banyak file akun Instagram (*Cross-Account*) tanpa membayar langganan terpisah.
   - **Dukungan Multi-Device:** Kode lisensi dapat dimasukkan di perangkat lain (misal dari PC ke *Smartphone*), mengizinkan pengguna menikmati fitur premium di gawai yang berbeda.

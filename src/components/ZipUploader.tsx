@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { UploadCloud, Loader2 } from 'lucide-react';
 import fpPromise from '@fingerprintjs/fingerprintjs';
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -43,7 +43,7 @@ export default function ZipUploader({ onFileSelect }: ZipUploaderProps) {
           if (parsed.month === currentMonth) {
             data = parsed;
           }
-        } catch(e) {}
+        } catch(_) {}
       }
       
       if (data.count >= 20) {

@@ -127,3 +127,25 @@ export const addUnlockedAccount = (username: string) => {
     console.error(e);
   }
 };
+
+export const hasPremiumPlusLicense = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  try {
+    const data = localStorage.getItem('followins_premium_plus');
+    return !!data;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const activatePremiumPlus = () => {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem('followins_premium_plus', 'true');
+    // Also trigger custom event to immediately hide ads across the app without refresh
+    window.dispatchEvent(new Event('premium_plus_activated'));
+  } catch (e) {
+    console.error(e);
+  }
+};
+

@@ -58,6 +58,8 @@ export default function ContactSupportModal() {
     }
   }
 
+  const inputClass = "w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all placeholder:text-zinc-500";
+
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div 
@@ -108,7 +110,7 @@ export default function ContactSupportModal() {
                   id="category" 
                   name="category" 
                   required
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+                  className={inputClass}
                 >
                   <option value="Bug">{content.catBug}</option>
                   <option value="Payment">{content.catPayment}</option>
@@ -127,7 +129,7 @@ export default function ContactSupportModal() {
                   name="email" 
                   required
                   placeholder={content.emailPlaceholder}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all placeholder:text-zinc-500"
+                  className={inputClass}
                 />
               </div>
 
@@ -140,7 +142,7 @@ export default function ContactSupportModal() {
                   id="username" 
                   name="username"
                   placeholder={content.usernamePlaceholder}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all placeholder:text-zinc-500"
+                  className={inputClass}
                 />
               </div>
 
@@ -154,7 +156,7 @@ export default function ContactSupportModal() {
                   required
                   rows={4}
                   placeholder={content.messagePlaceholder}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all placeholder:text-zinc-500 resize-none"
+                  className={`${inputClass} resize-none`}
                 ></textarea>
               </div>
 

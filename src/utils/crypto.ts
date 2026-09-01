@@ -21,7 +21,7 @@ export const obfuscate = (text: string): string => {
       return btoa(xored);
     }
     return Buffer.from(xored).toString('base64');
-  } catch (e) {
+  } catch (_) {
     return text;
   }
 };
@@ -38,7 +38,7 @@ export const deobfuscate = (obfuscatedText: string): string => {
       xored = Buffer.from(obfuscatedText, 'base64').toString('ascii');
     }
     return decodeURIComponent(xorCipher(xored));
-  } catch (e) {
+  } catch (_) {
     return "Error-Deobfuscate";
   }
 };

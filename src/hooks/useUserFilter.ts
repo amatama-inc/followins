@@ -18,13 +18,17 @@ export function useUserFilter({
   sortBy,
   currentTotalCount,
 }: UseUserFilterProps) {
-  const filteredList = useMemo(() => {
-    let list = [...currentList];
+  const applyLabelFilter = (list: string[]) => {
     if (labelFilter === 'unlabeled') {
-      list = list.filter(u => !labels[u]);
+      return list.filter(u => !labels[u]);
     } else if (labelFilter !== 'all') {
-      list = list.filter(u => labels[u] === labelFilter);
+      return list.filter(u => labels[u] === labelFilter);
     }
+    return list;
+  };
+
+  const filteredList = useMemo(() => {
+    let list = applyLabelFilter([...currentList]);
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase();
       list = list.filter(u => deobfuscate(u).toLowerCase().includes(q));
@@ -42,12 +46,7 @@ export function useUserFilter({
       return currentList.filter(u => labels[u] === labelFilter).length;
     }
     
-    let list = [...currentList];
-    if (labelFilter === 'unlabeled') {
-      list = list.filter(u => !labels[u]);
-    } else if (labelFilter !== 'all') {
-      list = list.filter(u => labels[u] === labelFilter);
-    }
+    const list = applyLabelFilter([...currentList]);
     const q = searchQuery.toLowerCase();
     let matches = 0;
     for (let i = 0; i < list.length; i++) {

@@ -30,11 +30,11 @@ export const dictionaries = {
     showing: "Menampilkan",
     from: "dari",
     accounts: "akun.",
-    maxRandomFree: "Maks 100 Username Acak (Versi Gratis)",
+    maxRandomFree: "Maks 250 Username Acak (Versi Gratis)",
     hiddenNames1: "Ada",
     hiddenNames2: "Akun yang Disembunyikan",
-    hiddenDesc: "Untuk mencegah penyalahgunaan data, versi gratis hanya menampilkan 100 username <strong>secara acak</strong> (dilindungi sistem menggunakan Base64). <strong>Upgrade Premium</strong> untuk melihat seluruh data.",
-    unlockAll: "Buka Semua Akses (Cuma Rp 15.000)",
+    hiddenDesc: "Berhenti menebak-nebak siapa yang unfollow kamu! Versi gratis hanya mengizinkan 250 akun secara acak. <strong>Pilih Paket Premium</strong> di bawah untuk membuka gembok dan dapatkan akses penuh ke 100% data.",
+    unlockAll: "Buka Semua Akses",
 
     // Footer.tsx
     privacyPolicy: "Kebijakan Privasi",
@@ -221,11 +221,11 @@ export const dictionaries = {
     showing: "Showing",
     from: "of",
     accounts: "accounts.",
-    maxRandomFree: "Max 100 Random Usernames (Free Version)",
+    maxRandomFree: "Max 250 Random Usernames (Free Version)",
     hiddenNames1: "You have",
     hiddenNames2: "Hidden Accounts",
-    hiddenDesc: "To prevent data abuse, the free version only displays 100 <strong>random</strong> usernames (system-protected using Base64). <strong>Upgrade to Premium</strong> to unlock all data.",
-    unlockAll: "Unlock Full Access (Only Rp 15.000)",
+    hiddenDesc: "Stop guessing who unfollowed you! The free version only allows 250 random accounts. <strong>Choose a Premium Plan</strong> below to unlock the vault and get full access to 100% of the hidden data.",
+    unlockAll: "Unlock Full Access",
 
     // Footer.tsx
     privacyPolicy: "Privacy Policy",

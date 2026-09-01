@@ -65,7 +65,7 @@ Rencana eksekusi langkah demi langkah untuk membangun Minimum Viable Product (MV
 
 **Monetisasi & Bisnis:**
 - [ ] Integrasi Payment Gateway Otomatis (Midtrans/Xendit).
-- [ ] **Sistem Premium Bertingkat (Multi-Tier Paywall) & Komponen UI *Pricing Section*:** Menampilkan perbandingan fitur antara Paket "Premium" (Buka Paywall 1 Akun, Iklan Aktif) vs Paket "Premium+" (Kode Lisensi, Lintas-Akun, 100% Ad-Free).
+- [x] **Sistem Premium Bertingkat (Multi-Tier Paywall) & Komponen UI *Pricing Section*:** Menampilkan perbandingan fitur antara Paket "Premium" (Buka Paywall 1 Akun, Iklan Aktif) vs Paket "Premium+" (Kode Lisensi, Lintas-Akun, 100% Ad-Free).
 - [ ] Sistem Kode Lisensi Premium Lintas-Akun (License Key) dengan limitasi per-perangkat (Device Limit) via Cloudflare KV.
 - [ ] Ekspor Laporan PDF Profesional B2B (White-label Logo).
 - [ ] Model Bisnis "Jual Putus" (One-Time Audit).

@@ -151,8 +151,12 @@ export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, i
     setBulkLabelValue("");
   };
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = async (tier: 'premium' | 'premium+' = 'premium') => {
     setIsModalOpen(false);
+    if (tier === 'premium+') {
+      const { activatePremiumPlus } = await import('@/utils/storage');
+      activatePremiumPlus();
+    }
     onUnlock();
   };
 
@@ -160,30 +164,40 @@ export default function UserTable({ unfollowers, fans, mutuals, ownerUsername, i
     <div className="w-full bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm flex flex-col h-full relative z-10">
       
       <div className="flex flex-row w-full border-b border-zinc-200 bg-zinc-50 overflow-x-auto hide-scrollbar">
-        <button
-          className={`flex-1 min-w-max px-4 sm:min-w-[120px] py-3 md:py-4 text-center font-bold text-xs sm:text-sm md:text-lg transition-colors border-r border-zinc-200 whitespace-nowrap ${
-            activeTab === 'unfollowers' ? 'bg-white text-zinc-900 shadow-[inset_0_-2px_0_0_#52525b]' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700'
-          }`}
-          onClick={() => handleTabChange('unfollowers')}
-        >
-          Unfollowers <span className="font-mono text-[10px] sm:text-xs md:text-sm text-zinc-400 ml-1">({formatCompactNumber(totalUnfollowersCount)})</span>
-        </button>
-        <button
-          className={`flex-1 min-w-max px-4 sm:min-w-[120px] py-3 md:py-4 text-center font-bold text-xs sm:text-sm md:text-lg transition-colors border-r border-zinc-200 whitespace-nowrap ${
-            activeTab === 'fans' ? 'bg-white text-teal-600 shadow-[inset_0_-2px_0_0_#14b8a6]' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700'
-          }`}
-          onClick={() => handleTabChange('fans')}
-        >
-          {accountMode === 'private' ? (language === 'en' ? 'Lurkers' : 'Penyusup') : 'Fans'} <span className="font-mono text-[10px] sm:text-xs md:text-sm text-teal-400 ml-1">({formatCompactNumber(totalFansCount)})</span>
-        </button>
-        <button
-          className={`flex-1 min-w-max px-4 sm:min-w-[120px] py-3 md:py-4 text-center font-bold text-xs sm:text-sm md:text-lg transition-colors whitespace-nowrap ${
-            activeTab === 'mutuals' ? 'bg-white text-indigo-600 shadow-[inset_0_-2px_0_0_#4f46e5]' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700'
-          }`}
-          onClick={() => handleTabChange('mutuals')}
-        >
-          Mutuals <span className="font-mono text-[10px] sm:text-xs md:text-sm text-indigo-400 ml-1">({formatCompactNumber(totalMutualsCount)})</span>
-        </button>
+        {[
+          {
+            id: 'unfollowers',
+            label: 'Unfollowers',
+            count: totalUnfollowersCount,
+            activeClass: 'bg-white text-zinc-900 shadow-[inset_0_-2px_0_0_#52525b]',
+            countClass: 'text-zinc-400'
+          },
+          {
+            id: 'fans',
+            label: accountMode === 'private' ? (language === 'en' ? 'Lurkers' : 'Penyusup') : 'Fans',
+            count: totalFansCount,
+            activeClass: 'bg-white text-teal-600 shadow-[inset_0_-2px_0_0_#14b8a6]',
+            countClass: 'text-teal-400'
+          },
+          {
+            id: 'mutuals',
+            label: 'Mutuals',
+            count: totalMutualsCount,
+            activeClass: 'bg-white text-indigo-600 shadow-[inset_0_-2px_0_0_#4f46e5]',
+            countClass: 'text-indigo-400',
+            noBorder: true
+          }
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            className={`flex-1 min-w-max px-4 sm:min-w-[120px] py-3 md:py-4 text-center font-bold text-xs sm:text-sm md:text-lg transition-colors whitespace-nowrap ${!tab.noBorder ? 'border-r border-zinc-200' : ''} ${
+              activeTab === tab.id ? tab.activeClass : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700'
+            }`}
+            onClick={() => handleTabChange(tab.id as 'unfollowers' | 'fans' | 'mutuals')}
+          >
+            {tab.label} <span className={`font-mono text-[10px] sm:text-xs md:text-sm ml-1 ${tab.countClass}`}>({formatCompactNumber(tab.count)})</span>
+          </button>
+        ))}
       </div>
       
       <div className="p-6 md:p-10 relative flex-1 flex flex-col">

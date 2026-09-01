@@ -402,8 +402,8 @@ export const FollowinsReportPDF: React.FC<FollowinsReportPDFProps> = ({ data, li
                  {data.pendingRequests?.length || 0}
                </Text>
                <Text style={{ fontSize: 10, color: '#71717a', textAlign: 'center', marginTop: 4 }}>
-                 Accounts hasn't accepted your request
-               </Text>
+                  Accounts hasn&apos;t accepted your request
+                </Text>
             </View>
           </View>
         </View>

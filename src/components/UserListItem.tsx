@@ -95,7 +95,7 @@ export default function UserListItem({
                       let clickedUsers: string[] = [];
                       try {
                         clickedUsers = JSON.parse(sessionStorage.getItem(key) || '[]');
-                      } catch (err) {}
+                      } catch (_) {}
                       
                       const hasClickedBefore = clickedUsers.includes(user);
                       

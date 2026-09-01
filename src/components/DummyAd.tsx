@@ -12,6 +12,18 @@ interface DummyAdProps {
 
 export default function DummyAd({ variant, className = '' }: DummyAdProps) {
   const { isDark } = useTheme();
+  const [hasPremiumPlus, setHasPremiumPlus] = React.useState(false);
+
+  React.useEffect(() => {
+    import('@/utils/storage').then(({ hasPremiumPlusLicense }) => {
+      setHasPremiumPlus(hasPremiumPlusLicense());
+      const handler = () => setHasPremiumPlus(true);
+      window.addEventListener('premium_plus_activated', handler);
+      return () => window.removeEventListener('premium_plus_activated', handler);
+    });
+  }, []);
+
+  if (hasPremiumPlus) return null;
   
   // Tampilan mockup estetis yang menyesuaikan dengan Dark/Light Mode
   const bgClass = isDark 
