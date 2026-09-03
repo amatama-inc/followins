@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="w-full mt-auto bg-zinc-900 border-t border-zinc-800 pt-8 pb-28 md:pb-36 relative overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-[150px] relative z-10">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-8 border-b border-zinc-800 pb-8">
           
           {/* Logo & Slogan */}

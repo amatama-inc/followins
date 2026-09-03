@@ -12,7 +12,7 @@ export default function PrivacySection() {
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isInView = useInView(sectionRef, { margin: "-100px" });
 
   useEffect(() => {
     if (!isAutoPlaying || !isInView) return;
@@ -64,7 +64,7 @@ export default function PrivacySection() {
 
   return (
     <section ref={sectionRef} className="w-full py-8 md:py-20 relative z-10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-[150px]">
         <div className="flex flex-col lg:flex-row items-stretch bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-sm relative">
 
           <div className="w-full lg:w-1/2 p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-zinc-200 relative z-10">
@@ -149,7 +149,7 @@ export default function PrivacySection() {
                   variants={terminalContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ margin: "-100px" }}
                   className="text-sm md:text-base text-zinc-300 font-medium leading-loose space-y-2 relative z-10"
                 >
                   <motion.div variants={terminalItem} className="flex items-center gap-2"><span className="text-emerald-500">{`>`}</span> Initializing extraction...</motion.div>

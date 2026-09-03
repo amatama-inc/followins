@@ -39,7 +39,7 @@ export default function FAQ() {
   const currentFaqs = faqs[activeCategory as keyof typeof faqs];
 
   return (
-    <section id="faq" className="w-full max-w-4xl mx-auto py-8 md:py-20 px-6 md:px-12 relative z-10">
+    <section id="faq" className="w-full max-w-4xl mx-auto py-8 md:py-20 px-6 md:px-12 lg:px-[150px] relative z-10">
       <div className="mb-8 md:mb-10 text-left">
         <h2 className="text-fluid-h2 font-black text-zinc-900 mb-6 tracking-tight leading-tight">{t('faqTitle')}</h2>
         <p className="text-fluid-subtitle text-zinc-600 font-light leading-relaxed">{t('faqDesc')}</p>

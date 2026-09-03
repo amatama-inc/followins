@@ -27,7 +27,7 @@ export default function PricingSection() {
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24" id="pricing">
+    <section className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-[150px] py-16 md:py-24" id="pricing">
       <div className="text-center mb-12 md:mb-16">
         <h2 className="text-3xl md:text-fluid-h2 font-black text-zinc-900 mb-4 tracking-tight">
           {language === 'en' ? 'Unlock Your Full Instagram Insights' : 'Buka Semua Data Instagram-mu'}
@@ -39,27 +39,27 @@ export default function PricingSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4 xl:gap-8 max-w-6xl mx-auto">
         
         {/* Free Plan */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-white rounded-3xl border border-zinc-200 p-8 shadow-sm flex flex-col relative transition-all hover:shadow-md"
+          className="bg-white rounded-3xl border border-zinc-200 p-6 lg:p-5 xl:p-8 shadow-sm flex flex-col relative transition-all hover:shadow-md"
         >
           <div className="mb-6">
-            <h3 className="text-2xl font-bold text-zinc-900 mb-2">Basic (Free)</h3>
-            <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-black text-zinc-900">Rp 0</span>
-              <span className="text-sm font-medium text-zinc-500">/ selamanya</span>
+            <h3 className="text-xl lg:text-lg xl:text-2xl font-bold text-zinc-900 mb-2">Basic (Free)</h3>
+            <div className="flex items-baseline gap-1 flex-wrap">
+              <span className="text-3xl lg:text-2xl xl:text-4xl font-black text-zinc-900 whitespace-nowrap">Rp 0</span>
+              <span className="text-sm lg:text-xs xl:text-sm font-medium text-zinc-500 whitespace-nowrap">/ selamanya</span>
             </div>
-            <p className="text-sm text-zinc-500 mt-2">
+            <p className="text-sm lg:text-xs xl:text-sm text-zinc-500 mt-2">
               {language === 'en' ? 'Try the core features at zero cost. Safe and private.' : 'Coba fitur dasar tanpa biaya. Aman dan privat.'}
             </p>
           </div>
 
-          <ul className="space-y-4 mb-8 flex-1">
+          <ul className="space-y-4 lg:space-y-3 xl:space-y-4 mb-8 flex-1">
             <FeatureItem icon={Check} text={language === 'en' ? 'Interactive Analytics Charts' : 'Grafik Analisis Interaktif'} />
             <FeatureItem text={language === 'en' ? 'Limited to 250 Random Accounts' : 'Terbatas 250 Akun Acak'} isFaded textStyle="text-zinc-500" />
             <FeatureItem text={language === 'en' ? 'No PDF Export' : 'Tidak Bisa Ekspor PDF'} isFaded textStyle="text-zinc-500" />
@@ -68,7 +68,7 @@ export default function PricingSection() {
           </ul>
 
           <button 
-            className="w-full py-3.5 bg-zinc-100 text-zinc-900 font-semibold rounded-xl hover:bg-zinc-200 transition-colors"
+            className="w-full py-3.5 lg:py-2.5 xl:py-3.5 bg-zinc-100 text-zinc-900 font-semibold rounded-xl hover:bg-zinc-200 transition-colors text-sm xl:text-base"
             onClick={handleUploadClick}
           >
             {language === 'en' ? 'Upload ZIP to start' : 'Unggah ZIP untuk mulai'}
@@ -81,20 +81,20 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-3xl border-2 border-zinc-900 p-8 shadow-xl flex flex-col relative transition-all"
+          className="bg-white rounded-3xl border-2 border-zinc-900 p-6 lg:p-5 xl:p-8 shadow-xl flex flex-col relative transition-all"
         >
           <div className="mb-6">
-            <h3 className="text-2xl font-bold text-zinc-900 mb-2">Premium (Personal)</h3>
-            <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-black text-zinc-900">Rp 25.000</span>
-              <span className="text-sm font-medium text-zinc-500">/ akun</span>
+            <h3 className="text-xl lg:text-lg xl:text-2xl font-bold text-zinc-900 mb-2">Premium (Personal)</h3>
+            <div className="flex items-baseline gap-1 flex-wrap">
+              <span className="text-3xl lg:text-2xl xl:text-4xl font-black text-zinc-900 whitespace-nowrap">Rp 25.000</span>
+              <span className="text-sm lg:text-xs xl:text-sm font-medium text-zinc-500 whitespace-nowrap">/ akun</span>
             </div>
-            <p className="text-sm text-zinc-500 mt-2">
+            <p className="text-sm lg:text-xs xl:text-sm text-zinc-500 mt-2">
               {language === 'en' ? 'One-time payment. Perfect for personal use to check a single account.' : 'Bayar sekali. Cocok untuk penggunaan pribadi pada 1 akun.'}
             </p>
           </div>
 
-          <ul className="space-y-4 mb-8 flex-1">
+          <ul className="space-y-4 lg:space-y-3 xl:space-y-4 mb-8 flex-1">
             <FeatureItem icon={Check} text={language === 'en' ? 'Interactive Analytics Charts' : 'Grafik Analisis Interaktif'} />
             <FeatureItem icon={Check} text={language === 'en' ? 'Reveal 100% Hidden Accounts' : 'Buka 100% Akun (Tanpa Sensor)'} />
             <FeatureItem icon={Check} text={language === 'en' ? 'Export Data to PDF' : 'Bisa Ekspor PDF'} />
@@ -103,7 +103,7 @@ export default function PricingSection() {
           </ul>
 
           <button 
-            className="w-full py-3.5 bg-zinc-900 text-white font-semibold rounded-xl hover:bg-zinc-800 transition-colors"
+            className="w-full py-3.5 lg:py-2.5 xl:py-3.5 bg-zinc-900 text-white font-semibold rounded-xl hover:bg-zinc-800 transition-colors text-sm xl:text-base"
             onClick={handleUploadClick}
           >
             {language === 'en' ? 'Upload ZIP to start' : 'Unggah ZIP untuk mulai'}
@@ -116,27 +116,27 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-3xl border-2 border-teal-600 p-8 shadow-xl shadow-teal-500/10 flex flex-col relative overflow-hidden"
+          className="bg-white rounded-3xl border-2 border-teal-600 p-6 lg:p-5 xl:p-8 shadow-xl shadow-teal-500/10 flex flex-col relative overflow-hidden"
         >
           <div className="absolute top-0 inset-x-0 h-1.5 bg-teal-600"></div>
-          <div className="absolute top-5 right-5 bg-teal-50 text-teal-700 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 border border-teal-100">
+          <div className="absolute top-4 right-4 lg:top-3 lg:right-3 xl:top-5 xl:right-5 bg-teal-50 text-teal-700 text-xs font-bold px-2 py-1 xl:px-3 rounded-full flex items-center gap-1 border border-teal-100 scale-90 lg:scale-75 xl:scale-100 origin-top-right">
             <Star size={12} className="fill-teal-600" /> {language === 'en' ? 'BEST VALUE' : 'PALING UNTUNG'}
           </div>
 
           <div className="mb-6 mt-2">
-            <h3 className="text-2xl font-bold text-zinc-900 mb-2 flex items-center gap-1">
-              Premium<span className="text-teal-600">+</span> <span className="text-lg font-medium text-zinc-400 ml-1">(Pro)</span>
+            <h3 className="text-xl lg:text-lg xl:text-2xl font-bold text-zinc-900 mb-2 flex items-center gap-1 flex-wrap pr-16 lg:pr-14 xl:pr-0">
+              Premium<span className="text-teal-600">+</span> <span className="text-base lg:text-sm xl:text-lg font-medium text-zinc-400 ml-1">(Pro)</span>
             </h3>
-            <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-black text-zinc-900">Rp 50.000</span>
-              <span className="text-sm font-medium text-zinc-500">/ {language === 'en' ? 'year' : 'tahun'}</span>
+            <div className="flex items-baseline gap-1 flex-wrap">
+              <span className="text-3xl lg:text-2xl xl:text-4xl font-black text-zinc-900 whitespace-nowrap">Rp 50.000</span>
+              <span className="text-sm lg:text-xs xl:text-sm font-medium text-zinc-500 whitespace-nowrap">/ {language === 'en' ? 'year' : 'tahun'}</span>
             </div>
-            <p className="text-sm text-zinc-500 mt-2">
+            <p className="text-sm lg:text-xs xl:text-sm text-zinc-500 mt-2">
               {language === 'en' ? 'Universal license key. Best for creators with multiple accounts.' : 'Lisensi universal. Solusi hemat untuk kreator atau multi-akun.'}
             </p>
           </div>
 
-          <ul className="space-y-4 mb-8 flex-1">
+          <ul className="space-y-4 lg:space-y-3 xl:space-y-4 mb-8 flex-1">
             <FeatureItem icon={Check} text={language === 'en' ? 'Interactive Analytics Charts' : 'Grafik Analisis Interaktif'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
             <FeatureItem icon={Check} text={language === 'en' ? 'Reveal 100% Hidden Accounts' : 'Buka 100% Akun (Tanpa Sensor)'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
             <FeatureItem icon={Check} text={language === 'en' ? 'Premium PDF Export' : 'Ekspor PDF Premium'} iconColor="text-teal-600" textStyle="text-zinc-700 font-medium" />
@@ -145,10 +145,10 @@ export default function PricingSection() {
           </ul>
 
           <button 
-            className="w-full py-3.5 bg-teal-600 text-white font-semibold rounded-xl hover:bg-teal-700 transition-colors shadow-md shadow-teal-600/30"
+            className="w-full py-3.5 lg:py-2.5 xl:py-3.5 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all hover:shadow-lg hover:shadow-teal-600/20 text-sm xl:text-base"
             onClick={handleUploadClick}
           >
-            {language === 'en' ? 'Upload ZIP to start' : 'Unggah ZIP untuk mulai'}
+            {language === 'en' ? 'Get Premium+ License' : 'Dapatkan Lisensi Premium+'}
           </button>
         </motion.div>
 

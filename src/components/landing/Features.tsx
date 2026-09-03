@@ -86,7 +86,7 @@ export default function Features() {
   }, [isPaused, isDragging, isInView]);
 
   return (
-    <section id="features" className="w-full max-w-7xl mx-auto py-8 md:py-20 px-6 md:px-12 relative z-10">
+    <section id="features" className="w-full max-w-7xl mx-auto py-8 md:py-20 px-6 md:px-12 lg:px-[150px] relative z-10">
       <div className="mb-8 md:mb-12 text-left">
         <h2 className="text-fluid-h2 font-black text-zinc-900 mb-6 tracking-tight leading-tight">{t('featuresTitle')}</h2>
         <p className="text-fluid-subtitle text-zinc-600 font-light leading-relaxed">{t('featuresDesc')}</p>

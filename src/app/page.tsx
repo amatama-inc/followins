@@ -415,7 +415,7 @@ export default function Home() {
           {status === 'idle' && (
             <>
               {/* Clean Minimalist Hero */}
-              <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center px-6 md:px-12 pt-10 pb-12 md:pb-20 gap-8 lg:gap-12">
+              <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center px-6 md:px-12 lg:px-[150px] pt-10 pb-12 md:pb-20 gap-8 lg:gap-12">
                 
                 {/* Left Column */}
                 <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center relative z-10 text-center lg:text-left lg:pr-4">
@@ -487,7 +487,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6 }}
-              className="w-full max-w-7xl mx-auto px-6 md:px-12"
+              className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-[150px]"
             >
               <HistoryWidget onRestore={handleRestore} />
             </motion.div>
@@ -556,7 +556,7 @@ export default function Home() {
         )}
 
         {status === 'done' && result && (
-          <div className="w-full px-4 md:px-8 pt-8 pb-12 md:pb-20 max-w-[1400px] mx-auto flex flex-col xl:flex-row gap-6 items-start">
+          <div className="w-full px-4 md:px-8 lg:px-12 xl:px-[150px] pt-8 pb-12 md:pb-20 max-w-[1400px] mx-auto flex flex-col xl:flex-row gap-6 items-start">
             <div className="flex-1 w-full flex flex-col gap-5 items-center min-w-0">
             <div className="w-full flex flex-wrap gap-4 justify-between items-center mb-2 print:hidden">
               <button 
